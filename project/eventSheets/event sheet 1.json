@@ -1,0 +1,91 @@
+{
+	"name": "Event sheet 1",
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 600796060729091
+				},
+				{
+					"id": "is-animation-playing",
+					"objectClass": "spriteA",
+					"sid": 375600211843534,
+					"parameters": {
+						"animation": "\"\""
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-angle",
+					"objectClass": "spriteA",
+					"sid": 606735515058356,
+					"parameters": {
+						"angle": "0"
+					}
+				},
+				{
+					"id": "set-effect-parameter",
+					"objectClass": "spriteA",
+					"sid": 931172136378812,
+					"parameters": {
+						"effect": "\"\"",
+						"parameter-index": "0",
+						"value": "0"
+					}
+				},
+				{
+					"id": "set-angle",
+					"objectClass": "spriteA",
+					"sid": 120900954357804,
+					"parameters": {
+						"angle": "spriteB.Angle + spriteB.Angle"
+					}
+				}
+			],
+			"sid": 716818167866675,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-animation-playing",
+							"objectClass": "spriteA",
+							"sid": 533689375726038,
+							"parameters": {
+								"animation": "\"\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 201068747516049
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 500792371627655
+				}
+			],
+			"actions": [
+				{
+					"id": "set-angle",
+					"objectClass": "spriteA",
+					"sid": 210514841406414,
+					"parameters": {
+						"angle": "2"
+					}
+				}
+			],
+			"sid": 433167869246152
+		}
+	],
+	"sid": 374418332008227
+}
