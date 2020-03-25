@@ -36,14 +36,6 @@
 						"parameter-index": "0",
 						"value": "0"
 					}
-				},
-				{
-					"id": "set-angle",
-					"objectClass": "spriteA",
-					"sid": 120900954357804,
-					"parameters": {
-						"angle": "spriteB.Angle + spriteB.Angle"
-					}
 				}
 			],
 			"sid": 716818167866675,
@@ -61,7 +53,32 @@
 						}
 					],
 					"actions": [],
-					"sid": 201068747516049
+					"sid": 201068747516049,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [],
+							"sid": 563149120311369,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-angle",
+											"objectClass": "spriteA",
+											"sid": 360404858393007,
+											"parameters": {
+												"angle": "Dictionary2.Get(\"0\")"
+											}
+										}
+									],
+									"sid": 939718221564233
+								}
+							]
+						}
+					]
 				}
 			]
 		},
@@ -84,7 +101,25 @@
 					}
 				}
 			],
-			"sid": 433167869246152
+			"sid": 433167869246152,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-key",
+							"objectClass": "Dictionary",
+							"sid": 702789745212562,
+							"parameters": {
+								"key": "\"teste\"",
+								"value": "\"rola.caralho ai sim\" & spriteB.AnimationName & \"rola.caralho ai sim\""
+							}
+						}
+					],
+					"sid": 512193066527785
+				}
+			]
 		}
 	],
 	"sid": 374418332008227

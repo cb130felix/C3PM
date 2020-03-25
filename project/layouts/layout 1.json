@@ -65,6 +65,12 @@
 			"properties": {},
 			"uid": 2,
 			"instanceVariables": {}
+		},
+		{
+			"type": "Dictionary2",
+			"properties": {},
+			"uid": 3,
+			"instanceVariables": {}
 		}
 	],
 	"effectTypes": [],

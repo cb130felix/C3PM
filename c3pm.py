@@ -2,16 +2,25 @@ import json
 import re
 
 def checkObjectinExpression(expression):
-    print(expression)
-    m = re.search(r'\b([\w]+\.)', expression)
-    print(m)
-
-
-
-
-def findObjects(events):
     
-    objectClassList = []
+    expressionObjectList = []
+
+    expression = re.sub('\\\"(.*?)\\\"', '', expression)
+
+    match = re.findall(r'\b([\w]+\.)', expression)
+    if match:
+        for string in match:
+            expressionObj = string.split(".")[0]
+            if expressionObj not in expressionObjectList:
+                expressionObjectList.append(expressionObj)
+    else:
+       pass
+
+    return expressionObjectList
+
+def findObjects(events, objectClassList):
+    
+    
     
     for event in events:
         if (event["eventType"] ==  "block"):
@@ -21,20 +30,26 @@ def findObjects(events):
                     for ace in eventValue:
                         if ("parameters" in ace):
                             for parameterKey, parameterValue in ace["parameters"].items():
-                                checkObjectinExpression(parameterValue)
+                                expressionObjList = checkObjectinExpression(parameterValue)
+                                for obj in expressionObjList:
+                                    if obj not in objectClassList:
+                                        objectClassList.append(obj)
                         
                         
                         if ace["objectClass"] not in objectClassList:
                             objectClassList.append(ace["objectClass"])
-
-    print("Object lis: ", objectClassList)
+                elif(eventKey == "children"):
+                    findObjects(event["children"], objectClassList)
+    
+    return objectClassList
 
 
 def main():
+
     proj = ""
     eventSheet = ""
 
-
+    objectClassList = []
 
 
     with open("project\project.c3proj") as json_file:
@@ -44,8 +59,8 @@ def main():
         eventSheet = json.load(json_file)
 
 
-    findObjects(eventSheet["events"])
+    findObjects(eventSheet["events"], objectClassList)
     
-    #print(eventSheet)
+    print("Object lis: ", objectClassList)
 
 main()
