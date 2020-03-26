@@ -8,6 +8,14 @@
 	"usedAddons": [
 		{
 			"type": "plugin",
+			"id": "Sprite",
+			"name": "Sprite",
+			"author": "Scirra",
+			"version": "r192",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
 			"id": "Dictionary",
 			"name": "Dictionary",
 			"author": "Scirra",
@@ -16,8 +24,24 @@
 		},
 		{
 			"type": "plugin",
-			"id": "Sprite",
-			"name": "Sprite",
+			"id": "Tilemap",
+			"name": "Tilemap",
+			"author": "Scirra",
+			"version": "r192",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Audio",
+			"name": "Audio",
+			"author": "Scirra",
+			"version": "r192",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Spritefont2",
+			"name": "Sprite font",
 			"author": "Scirra",
 			"version": "r192",
 			"bundled": false
@@ -27,16 +51,28 @@
 	"objectTypes": {
 		"items": [
 			"Dictionary",
-			"spriteA",
-			"spriteB",
-			"Dictionary2"
+			"Dictionary2",
+			"Tilemap",
+			"Audio",
+			"SpriteFont"
 		],
-		"subfolders": []
+		"subfolders": [
+			{
+				"items": [
+					"spriteA",
+					"spriteB"
+				],
+				"subfolders": [],
+				"name": "sprites"
+			}
+		]
 	},
 	"autosaveData": null,
 	"containers": [],
 	"families": {
-		"items": [],
+		"items": [
+			"spriteFamily"
+		],
 		"subfolders": []
 	},
 	"layouts": {
@@ -57,7 +93,13 @@
 			"subfolders": []
 		},
 		"sound": {
-			"items": [],
+			"items": [
+				{
+					"name": "SFX_Bomb_WakeUp.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 861014301905211
+				}
+			],
 			"subfolders": []
 		},
 		"music": {
@@ -80,16 +122,6 @@
 					"sid": 712380865732244
 				},
 				{
-					"name": "icon-16.png",
-					"type": "image/png",
-					"sid": 115480016728658
-				},
-				{
-					"name": "icon-512.png",
-					"type": "image/png",
-					"sid": 249103173504665
-				},
-				{
 					"name": "icon-256.png",
 					"type": "image/png",
 					"sid": 267694353895909
@@ -100,14 +132,24 @@
 					"sid": 894329751806715
 				},
 				{
+					"name": "icon-64.png",
+					"type": "image/png",
+					"sid": 996569642134066
+				},
+				{
 					"name": "icon-32.png",
 					"type": "image/png",
 					"sid": 502271028684778
 				},
 				{
-					"name": "icon-64.png",
+					"name": "icon-512.png",
 					"type": "image/png",
-					"sid": 996569642134066
+					"sid": 249103173504665
+				},
+				{
+					"name": "icon-16.png",
+					"type": "image/png",
+					"sid": 115480016728658
 				}
 			],
 			"subfolders": []

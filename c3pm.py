@@ -1,26 +1,42 @@
 import json
 import re
+import shutil
+import os
+from os import walk
+import zipfile
+
+
+import include.formatFilename
+
+infoObj = {"packName" : "pack name", "author" : "author name", "version" : "1.0.0.0", "data" : {"objectTypes": [], "families" : []}}
+folders = {"output": "output", "families" : "output\\temp\\families", "eventSheets" : "output\\temp\\eventSheets", "images" : "output\\temp\\images", "objectTypes" : "output\\temp\\objectTypes", "info" : "output\\temp\\"}
+
+def zipdir(path, ziph):
+    # ziph is zipfile handle
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            ziph.write(os.path.join(root, file))
 
 def checkObjectinExpression(expression):
     
     expressionObjectList = []
 
+    #remove strings
     expression = re.sub('\\\"(.*?)\\\"', '', expression)
 
-    match = re.findall(r'\b([\w]+\.)', expression)
+    #match objects
+    match = re.findall(r'(\w+)\.[^ ]*', expression)
     if match:
-        for string in match:
-            expressionObj = string.split(".")[0]
-            if expressionObj not in expressionObjectList:
-                expressionObjectList.append(expressionObj)
-    else:
-       pass
+        for obj in match:
+            if obj not in expressionObjectList:
+                expressionObjectList.append(obj)
+
 
     return expressionObjectList
 
-def findObjects(events, objectClassList):
+def findObjects(events):
     
-    
+    objectClassList = []
     
     for event in events:
         if (event["eventType"] ==  "block"):
@@ -39,12 +55,78 @@ def findObjects(events, objectClassList):
                         if ace["objectClass"] not in objectClassList:
                             objectClassList.append(ace["objectClass"])
                 elif(eventKey == "children"):
-                    findObjects(event["children"], objectClassList)
+                    tempList = findObjects(event["children"])
+                    for obj in tempList:
+                        if obj not in objectClassList:
+                            objectClassList.append(obj)
+                        
     
     return objectClassList
 
+def createObjectsTypes(projectPath, objectList):
+    
+    images = []
+    
+    #copy object files, families and images
+    for (dirpath, dirnames, filenames) in walk(projectPath + "\images"):
+        images.extend(filenames)
+        break
+    
+    for objType in ["objectTypes", "families"]:
+        
+        files = []
 
-def main():
+        path = projectPath + "\\" + objType
+
+        for (dirpath, dirnames, filenames) in walk(path):
+            files.extend(filenames)
+            break
+        
+        print(files)
+        for obj in objectList:
+            objFileName = (obj+".json").lower()
+
+            if objFileName in files:
+                
+                original = r'' + projectPath + "\\" + objType + "\\" + obj + ".json"
+                target = r'' + folders[objType] + '\\' + obj + ".json"
+
+                shutil.copyfile(original, target)
+
+                infoObj["data"][objType].append(obj)
+                
+                if objType == "objectTypes":
+                    
+                    for image in images:
+                        if image.find(obj.lower()) >= 0:
+                            
+                            original = r'' + projectPath + "\images\\" + image
+                            target = r'' + folders['images'] + '\\' + image
+
+                            shutil.copyfile(original, target)
+
+    #create info.json file
+    with open(folders['info'] + '\info.json', 'w') as f:
+        json.dump(infoObj, f)
+
+def createFolders():
+
+    
+    for folderKey, forlderPath in folders.items():
+        if not os.path.exists(forlderPath):
+            os.makedirs(forlderPath)
+    
+
+def exportPack(projectPath, packName, author, version, sheetName):
+    
+    infoObj["packName"] = packName
+    infoObj["author"] = author
+    infoObj["version"] = version
+    
+    if os.path.exists('temp'):
+        shutil.rmtree("temp")
+
+    createFolders()
 
     proj = ""
     eventSheet = ""
@@ -52,15 +134,33 @@ def main():
     objectClassList = []
 
 
-    with open("project\project.c3proj") as json_file:
-        data = json.load(json_file)
+    with open(projectPath + "\project.c3proj") as json_file:
+        c3proj = json.load(json_file)
 
-    with open("project\eventSheets\event sheet 1.json") as json_file:
+    with open(projectPath + "\eventSheets\\" + sheetName + ".json") as json_file:
         eventSheet = json.load(json_file)
 
+    #copy eventSheet
+    original = r'' + projectPath + "\eventSheets\\" + sheetName + '.json'
+    target = r'' + folders['eventSheets'] + "\\" + sheetName + '.json'
 
-    findObjects(eventSheet["events"], objectClassList)
+
+    shutil.copyfile(original, target)
+
+    objectClassList = findObjects(eventSheet["events"])
+    createObjectsTypes(projectPath, objectClassList)
     
-    print("Object lis: ", objectClassList)
+    filename = include.formatFilename.format_filename(packName)
+    zipf = zipfile.ZipFile( folders['output'] + "\\" + filename + '.c3pack', 'w', zipfile.ZIP_DEFLATED)
+    zipdir('temp/', zipf)
+    zipf.close()
 
-main()
+
+
+def main():
+    createFolders()
+    exportPack("F:\Github\C3PM\project", "Pack name", "Author name", "1.0.0.0", "event sheet 1")
+    print(infoObj)
+
+if __name__== "__main__":
+    main()

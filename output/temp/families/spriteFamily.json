@@ -1,0 +1,12 @@
+{
+	"name": "spriteFamily",
+	"plugin-id": "Sprite",
+	"sid": 609870407870348,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"members": [
+		"spriteA",
+		"spriteB"
+	]
+}
