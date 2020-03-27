@@ -2,6 +2,14 @@
 	"name": "Event sheet 1",
 	"events": [
 		{
+			"eventType": "include",
+			"includeSheet": "Event sheet 2"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "Event sheet 3"
+		},
+		{
 			"eventType": "block",
 			"conditions": [
 				{
@@ -11,7 +19,7 @@
 				},
 				{
 					"id": "is-animation-playing",
-					"objectClass": "spriteA",
+					"objectClass": "spriteFamily",
 					"sid": 375600211843534,
 					"parameters": {
 						"animation": "\"\""
@@ -21,7 +29,7 @@
 			"actions": [
 				{
 					"id": "set-angle",
-					"objectClass": "spriteA",
+					"objectClass": "spriteFamily",
 					"sid": 606735515058356,
 					"parameters": {
 						"angle": "0"
@@ -29,7 +37,7 @@
 				},
 				{
 					"id": "set-effect-parameter",
-					"objectClass": "spriteA",
+					"objectClass": "spriteFamily",
 					"sid": 931172136378812,
 					"parameters": {
 						"effect": "\"\"",
@@ -55,6 +63,14 @@
 						"volume": "0",
 						"tag-optional": "\"\""
 					}
+				},
+				{
+					"id": "set-text",
+					"objectClass": "SpriteFont",
+					"sid": 194169991169441,
+					"parameters": {
+						"text": "\"\""
+					}
 				}
 			],
 			"sid": 716818167866675,
@@ -64,7 +80,7 @@
 					"conditions": [
 						{
 							"id": "is-animation-playing",
-							"objectClass": "spriteA",
+							"objectClass": "spriteFamily",
 							"sid": 533689375726038,
 							"parameters": {
 								"animation": "\"\""
@@ -86,7 +102,7 @@
 									"actions": [
 										{
 											"id": "set-angle",
-											"objectClass": "spriteA",
+											"objectClass": "spriteFamily",
 											"sid": 360404858393007,
 											"parameters": {
 												"angle": "Dictionary2.Get(\"0\")"
@@ -113,7 +129,7 @@
 			"actions": [
 				{
 					"id": "set-angle",
-					"objectClass": "spriteA",
+					"objectClass": "spriteFamily",
 					"sid": 312284221905160,
 					"parameters": {
 						"angle": "2"
@@ -121,7 +137,7 @@
 				},
 				{
 					"id": "set-angle",
-					"objectClass": "spriteA",
+					"objectClass": "spriteFamily",
 					"sid": 275918213221558,
 					"parameters": {
 						"angle": "2"
@@ -145,6 +161,16 @@
 						}
 					],
 					"sid": 272771694876383
+				},
+				{
+					"eventType": "script",
+					"script": "console.log(\"teste\")"
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [],
+					"sid": 709563135419510
 				}
 			]
 		}

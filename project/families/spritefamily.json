@@ -2,11 +2,23 @@
 	"name": "spriteFamily",
 	"plugin-id": "Sprite",
 	"sid": 609870407870348,
-	"instanceVariables": [],
+	"instanceVariables": [
+		{
+			"name": "Variable1",
+			"type": "number",
+			"desc": "",
+			"sid": 934613550326481
+		},
+		{
+			"name": "Variable2",
+			"type": "string",
+			"desc": "",
+			"sid": 859901470606455
+		}
+	],
 	"behaviorTypes": [],
 	"effectTypes": [],
 	"members": [
-		"spriteA",
-		"spriteB"
+		"spriteA"
 	]
 }

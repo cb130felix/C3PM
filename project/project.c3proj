@@ -54,7 +54,9 @@
 			"Dictionary2",
 			"Tilemap",
 			"Audio",
-			"SpriteFont"
+			"SpriteFont",
+			"eventSheet2_sprite",
+			"eventSheet3_sprite"
 		],
 		"subfolders": [
 			{
@@ -83,7 +85,9 @@
 	},
 	"eventSheets": {
 		"items": [
-			"Event sheet 1"
+			"Event sheet 1",
+			"Event sheet 2",
+			"Event sheet 3"
 		],
 		"subfolders": []
 	},
@@ -117,9 +121,14 @@
 		"icon": {
 			"items": [
 				{
-					"name": "loading-logo.png",
+					"name": "icon-16.png",
 					"type": "image/png",
-					"sid": 712380865732244
+					"sid": 115480016728658
+				},
+				{
+					"name": "icon-512.png",
+					"type": "image/png",
+					"sid": 249103173504665
 				},
 				{
 					"name": "icon-256.png",
@@ -132,24 +141,19 @@
 					"sid": 894329751806715
 				},
 				{
-					"name": "icon-64.png",
-					"type": "image/png",
-					"sid": 996569642134066
-				},
-				{
 					"name": "icon-32.png",
 					"type": "image/png",
 					"sid": 502271028684778
 				},
 				{
-					"name": "icon-512.png",
+					"name": "icon-64.png",
 					"type": "image/png",
-					"sid": 249103173504665
+					"sid": 996569642134066
 				},
 				{
-					"name": "icon-16.png",
+					"name": "loading-logo.png",
 					"type": "image/png",
-					"sid": 115480016728658
+					"sid": 712380865732244
 				}
 			],
 			"subfolders": []

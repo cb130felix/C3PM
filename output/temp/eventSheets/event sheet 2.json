@@ -1,0 +1,33 @@
+{
+	"name": "Event sheet 2",
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 270212160629669
+				}
+			],
+			"actions": [
+				{
+					"id": "set-angle",
+					"objectClass": "eventSheet2_sprite",
+					"sid": 316390077687053,
+					"parameters": {
+						"angle": "0"
+					}
+				}
+			],
+			"sid": 767481452711336
+		},
+		{
+			"eventType": "block",
+			"conditions": [],
+			"actions": [],
+			"sid": 628666854896324
+		}
+	],
+	"sid": 795621168803728
+}

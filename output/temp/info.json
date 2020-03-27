@@ -1,1 +1,1 @@
-{"packName": "Pack name", "author": "Author name", "version": "1.0.0.0", "data": {"objectTypes": ["spriteA", "Audio", "Dictionary2", "spriteB", "Dictionary"], "families": ["spriteFamily"]}}
+{"packName": "Pack name", "author": "Author name", "version": "1.0.0.0", "data": {"eventSheets": ["Event sheet 1", "Event sheet 2", "Event sheet 3"], "objectTypes": ["spriteA", "Audio", "SpriteFont", "Dictionary2", "spriteB", "Dictionary", "eventSheet2_sprite", "eventSheet3_sprite"], "families": ["spriteFamily"]}}
