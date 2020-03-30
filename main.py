@@ -1,8 +1,10 @@
-import c3pmExporter
+import c3pm
 
 def main():
 
-    c3pmExporter.exportPack("F:\\Github\\C3PM\\project", "Pack name", "Author name", "1.0.0.0", "Event sheet 1")
+    c3pm.importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\source_project.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\target_project.c3p")
+
+
 
 if __name__== "__main__":
     main()

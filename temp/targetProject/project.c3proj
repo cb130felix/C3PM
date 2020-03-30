@@ -1,0 +1,350 @@
+{
+    "projectFormatVersion": 1,
+    "savedWithRelease": 19200,
+    "name": "New project",
+    "runtime": "c3",
+    "useWorker": true,
+    "bundleAddons": false,
+    "usedAddons": [
+        {
+            "type": "plugin",
+            "id": "Sprite",
+            "name": "Sprite",
+            "author": "Scirra",
+            "version": "r192",
+            "bundled": false
+        },
+        {
+            "type": "behavior",
+            "id": "Timer",
+            "name": "Timer",
+            "author": "Scirra",
+            "version": "r192",
+            "bundled": false
+        }
+    ],
+    "uniqueId": "18zhvvp49ep",
+    "objectTypes": {
+        "items": [],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": [
+                    {
+                        "items": [
+                            "SpriteD"
+                        ],
+                        "subfolders": [
+                            {
+                                "items": [
+                                    "SpriteA"
+                                ],
+                                "subfolders": [
+                                    {
+                                        "items": [
+                                            "SpriteB"
+                                        ],
+                                        "subfolders": [],
+                                        "name": "folderB"
+                                    }
+                                ],
+                                "name": "folderA"
+                            },
+                            {
+                                "items": [
+                                    "SpriteC"
+                                ],
+                                "subfolders": [],
+                                "name": "folderC"
+                            }
+                        ],
+                        "name": "packageName"
+                    }
+                ],
+                "name": "c3Packs"
+            }
+        ]
+    },
+    "autosaveData": null,
+    "containers": [
+        {
+            "members": [
+                "SpriteA",
+                "SpriteB"
+            ],
+            "selectMode": "normal"
+        }
+    ],
+    "families": {
+        "items": [],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": [
+                    {
+                        "items": [
+                            "rotatingSprite"
+                        ],
+                        "subfolders": [],
+                        "name": "packageName"
+                    }
+                ],
+                "name": "c3Packs"
+            }
+        ]
+    },
+    "layouts": {
+        "items": [
+            "Layout 1"
+        ],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": [
+                    {
+                        "items": [
+                            "customLayout"
+                        ],
+                        "subfolders": [],
+                        "name": "packageName"
+                    }
+                ],
+                "name": "c3Packs"
+            }
+        ]
+    },
+    "eventSheets": {
+        "items": [
+            "Event sheet 1"
+        ],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": [
+                    {
+                        "items": [
+                            "customSheet"
+                        ],
+                        "subfolders": [],
+                        "name": "packageName"
+                    }
+                ],
+                "name": "c3Packs"
+            }
+        ]
+    },
+    "rootFileFolders": {
+        "script": {
+            "items": [],
+            "subfolders": [
+                {
+                    "items": [],
+                    "subfolders": [
+                        {
+                            "items": [
+                                {
+                                    "name": "Script2.js",
+                                    "type": "application/javascript",
+                                    "sid": 774145870389023
+                                }
+                            ],
+                            "subfolders": [
+                                {
+                                    "items": [
+                                        {
+                                            "name": "Script.js",
+                                            "type": "application/javascript",
+                                            "sid": 425821327898634
+                                        }
+                                    ],
+                                    "subfolders": [],
+                                    "name": "New folder"
+                                }
+                            ],
+                            "name": "packageName"
+                        }
+                    ],
+                    "name": "c3Packs"
+                }
+            ]
+        },
+        "sound": {
+            "items": [],
+            "subfolders": [
+                {
+                    "items": [],
+                    "subfolders": [
+                        {
+                            "items": [
+                                {
+                                    "name": "SFX_PumpkinThump.webm",
+                                    "type": "audio/webm; codecs=opus",
+                                    "sid": 412042712988482
+                                }
+                            ],
+                            "subfolders": [
+                                {
+                                    "items": [
+                                        {
+                                            "name": "SFX_Bomb_WakeUp.webm",
+                                            "type": "audio/webm; codecs=opus",
+                                            "sid": 260686769510179
+                                        }
+                                    ],
+                                    "subfolders": [],
+                                    "name": "audioFolder"
+                                }
+                            ],
+                            "name": "packageName"
+                        }
+                    ],
+                    "name": "c3Packs"
+                }
+            ]
+        },
+        "music": {
+            "items": [],
+            "subfolders": []
+        },
+        "video": {
+            "items": [],
+            "subfolders": []
+        },
+        "font": {
+            "items": [],
+            "subfolders": []
+        },
+        "icon": {
+            "items": [
+                {
+                    "name": "icon-512.png",
+                    "type": "image/png",
+                    "sid": 143134019259605
+                },
+                {
+                    "name": "icon-64.png",
+                    "type": "image/png",
+                    "sid": 258045800598192
+                },
+                {
+                    "name": "loading-logo.png",
+                    "type": "image/png",
+                    "sid": 202178467332659
+                },
+                {
+                    "name": "icon-32.png",
+                    "type": "image/png",
+                    "sid": 131755510401782
+                },
+                {
+                    "name": "icon-16.png",
+                    "type": "image/png",
+                    "sid": 139409832514694
+                },
+                {
+                    "name": "icon-256.png",
+                    "type": "image/png",
+                    "sid": 618447297051908
+                },
+                {
+                    "name": "icon-128.png",
+                    "type": "image/png",
+                    "sid": 681515449858541
+                }
+            ],
+            "subfolders": []
+        },
+        "general": {
+            "items": [],
+            "subfolders": []
+        }
+    },
+    "timelines": {
+        "items": [],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": []
+            },
+            {
+                "items": [],
+                "subfolders": [
+                    {
+                        "items": [],
+                        "subfolders": [
+                            {
+                                "items": [],
+                                "subfolders": [
+                                    {
+                                        "items": [
+                                            "customEase"
+                                        ],
+                                        "subfolders": [],
+                                        "name": "New folder"
+                                    }
+                                ]
+                            },
+                            {
+                                "items": [
+                                    "customTimeline"
+                                ],
+                                "subfolders": [],
+                                "name": "New folder 2"
+                            }
+                        ],
+                        "name": "packageName"
+                    }
+                ],
+                "name": "c3Packs"
+            }
+        ]
+    },
+    "properties": {
+        "description": "",
+        "version": "1.0.0.0",
+        "author": "",
+        "authorEmail": "",
+        "authorWebsite": "",
+        "appId": "",
+        "pixelRounding": true,
+        "useLoaderLayout": false,
+        "fullscreenMode": "letterbox-integer-scale",
+        "fullscreenQuality": "low",
+        "viewportFit": "auto",
+        "backgroundColor": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "splashColor": [
+            1,
+            1,
+            1,
+            0
+        ],
+        "useThemeColor": false,
+        "themeColor": [
+            1,
+            1,
+            1,
+            0
+        ],
+        "useHighDpi": true,
+        "orientations": "landscape",
+        "enableWebGL": true,
+        "gpuPreference": "high-performance",
+        "framerateMode": "vsync",
+        "compositingMode": "standard",
+        "sampling": "nearest",
+        "downscaling": "medium",
+        "maxSpriteSheetSize": 2048,
+        "loaderStyle": "splash",
+        "preloadSounds": true,
+        "clearBackground": true,
+        "enhancedAccelerationPrecision": true
+    },
+    "viewportWidth": 854,
+    "viewportHeight": 480,
+    "firstLayout": null
+}

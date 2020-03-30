@@ -1,0 +1,30 @@
+{
+	"name": "rotatingSprite",
+	"plugin-id": "Sprite",
+	"sid": 215442536785990,
+	"instanceVariables": [
+		{
+			"name": "rotateAngle",
+			"type": "number",
+			"desc": "",
+			"sid": 890157847964460
+		},
+		{
+			"name": "rotateTimer",
+			"type": "number",
+			"desc": "",
+			"sid": 866404236375709
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Timer",
+			"name": "Timer",
+			"sid": 475091405460883
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"SpriteA"
+	]
+}

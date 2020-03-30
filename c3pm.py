@@ -1,5 +1,4 @@
 import json
-import re
 import shutil
 import os
 from os import walk
@@ -7,9 +6,7 @@ from os.path import basename
 import zipfile
 
 
-import include.formatFilename
-
-folders = {"project": {"root" : "temp\\project"}, "pack": {'root' : "temp\\pack", "families" : "temp\\pack\\families", "eventSheets" : "temp\\pack\\eventSheets", "images" : "temp\\pack\\images", "objectTypes" : "temp\\pack\\objectTypes", "info" : "temp\\pack"}}
+folders = {'sourceProject' : {'source' : '', 'root' : 'temp\\sourceProject'}, 'targetProject' : {'source' : '', 'root' : 'temp\\targetProject'}}
 
 def zipDir(dirPath, zipPath):
     zipf = zipfile.ZipFile(zipPath , mode='w')
@@ -18,235 +15,143 @@ def zipDir(dirPath, zipPath):
         for file in files:
             filePath = os.path.join(root, file)
             zipf.write(filePath , filePath[lenDirPath :] )
-    zipf.close()            
+    zipf.close()    
 
-def exportPack_checkObjectInExpression(expression):
-    
-    expressionObjectList = []
-
-    #remove strings
-    expression = re.sub('\\\"(.*?)\\\"', '', expression)
-
-    #match objects
-    match = re.findall(r'(\w+)\.[^ ]*', expression)
-    if match:
-        for obj in match:
-            if obj not in expressionObjectList:
-                expressionObjectList.append(obj)
-
-
-    return expressionObjectList
-
-def exportPack_findObjects(events):
-    
-    fullObjectList = []
-    
-    for event in events:
-        if (event["eventType"] ==  "block"):
-            for eventKey, eventValue in event.items():
-                
-                if(eventKey == "conditions" or eventKey == "actions"):
-                    for ace in eventValue:
-                        if ("parameters" in ace):
-                            for parameterKey, parameterValue in ace["parameters"].items():
-                                expressionObjList = exportPack_checkObjectInExpression(parameterValue)
-                                for obj in expressionObjList:
-                                    if obj not in fullObjectList:
-                                        fullObjectList.append(obj)
-                        
-                        
-                        if ace["objectClass"] not in fullObjectList:
-                            fullObjectList.append(ace["objectClass"])
-                elif(eventKey == "children"):
-                    tempList = exportPack_findObjects(event["children"])
-                    for obj in tempList:
-                        if obj not in fullObjectList:
-                            fullObjectList.append(obj)
-                    
-    
-    return fullObjectList
-
-def exportPack_getEventSheetObjects(projectPath, eventSheetName, eventSheetList):
-    
-    objectList = []
-    tempList = []
-
-    #load event sheet
-    eventSheet = ""
-    with open(projectPath + "\eventSheets\\" + eventSheetName + ".json") as json_file:
-        eventSheet = json.load(json_file)
-
-    if eventSheet not in eventSheetList:
-        eventSheetList.append(eventSheetName)    
-
-    tempList += exportPack_findObjects(eventSheet['events'])
-
-    for event in eventSheet["events"]:
-        if event['eventType'] == "include":
-            if event['includeSheet'] not in eventSheetList:
-                temp = exportPack_getEventSheetObjects(projectPath, event["includeSheet"], eventSheetList)
-                tempList += temp
-            
-    for item in tempList:
-        if item not in objectList:
-            objectList.append(item)
+fileTypeList = {
+    'eventSheets' : {'folderName' : 'eventSheets', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'true' },
+    'families' : {'folderName' : 'families', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'true'},
+    'objectTypes' : {'folderName' : 'objectTypes', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'true'},
+    'layouts' : {'folderName' : 'layouts', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'true'},
+    'timelines' : {'folderName' : 'timelines', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'true'},
+    'ease' : {'folderName' : 'timelines//transitions', 'copyFiles' : 'true', 'metaData' : 'false', 'c3File' : 'true'},
+    'images' : {'folderName' : 'images', 'copyFiles' : 'true', 'metaData' : 'false', 'c3File' : 'false'},
+    'script' : {'folderName' : 'scripts', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'},
+    'sound' : {'folderName' : 'sounds', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'},
+    'music' : {'folderName' : 'music', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'},
+    'video' : {'folderName' : 'videos', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'},
+    'font' : {'folderName' : 'fonts', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'},
+    'general' : {'folderName' : 'fonts', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'}
+}
 
 
-    return objectList
-
-def exportPack_getPackData(projectPath, fullObjectList):
-    
-    imageFileList = []
-    objectTypeFileList = []
-    familyFileList = []
- 
-    #copy object files, families and images
-    for (dirpath, dirnames, filenames) in walk(projectPath + "\objectTypes"):
-        objectTypeFileList.extend(filenames)
-        break
-
-    for (dirpath, dirnames, filenames) in walk(projectPath + "\\families"):
-        familyFileList.extend(filenames)
-        break
-    
-
-    familyObjList = []
-    objectTypeList = []
-
-    for obj in fullObjectList:
-        tempFileName = obj.lower() + ".json"
-        
-        for familyFile in familyFileList:
-            if tempFileName == familyFile:
-                familyJson = {}
-        
-                with open(projectPath + "\\families\\" + familyFile) as json_file:
-                    familyJson = json.load(json_file)
-        
-                familyObjList.append(obj)
-        
-                for familyMenber in familyJson['members']:
-                    if familyMenber not in objectTypeList:
-                        objectTypeList.append(familyMenber)
+def importPack_extractFiles():
    
-        for objectTypeFile in objectTypeFileList:
-            if tempFileName == objectTypeFile:
-                if obj not in objectTypeList:
-                    objectTypeList.append(obj)
-
-    return {'objectTypes' : objectTypeList, 'families' : familyObjList}
     
-def exportPack_infoFile(projectPath, packName, author, version, eventSheetName):
-
-    #set info.json
-    infoJson = {"packName" : "pack name", "author" : "author name", "version" : "1.0.0.0", "data" : {}}
-    eventSheetList = []
-
-    infoJson["packName"] = packName
-    infoJson["author"] = author
-    infoJson["version"] = version
-
-    allObjectList = exportPack_getEventSheetObjects(projectPath, eventSheetName, eventSheetList)
-    infoJson["data"]["eventSheets"] = eventSheetList
-
-    tempData = exportPack_getPackData(projectPath, allObjectList)
-    infoJson["data"]["objectTypes"] = tempData["objectTypes"]
-    infoJson["data"]["families"] = tempData["families"]
-
-    return infoJson
-
-def exportPack_copyFiles(projectPath, info):
-    
-
-
-    # copy event sheets, objectTypes and families
-
-    fileTypes = ['objectTypes', 'families', 'eventSheets']
-
-    for fileType in fileTypes:
-        for fileName in os.listdir(projectPath + "\\" + fileType):
-            
-            for item in info['data'][fileType]:
-                formatedFileName = item.lower() + '.json'
-
-                if formatedFileName == fileName:
-                    source = projectPath + '\\' + fileType + '\\' + fileName
-                    destination = folders['pack'][fileType] + '\\' + fileName
-                    shutil.copyfile(source, destination)
-
-    # copy images
-
-    for fileName in os.listdir(projectPath + "\\images"):
-        for item in info['data']['objectTypes']:
-
-            if fileName.find(item.lower()) >= 0:
-                    source = projectPath + '\\images\\' + fileName
-                    destination = folders['pack']['images'] + '\\' + fileName
-                    shutil.copyfile(source, destination)
-
-def exportPack(projectPath, packPath, packName, author, version, eventSheetName):
-
-    #create temp file folders
-    
-    for folderType in ['project', 'pack']:
+    #copy project files
+    for fileTypeKey, fileTypeValue in fileTypeList.items():
         
-        for folderKey, forlderPath in folders[folderType].items():
-            if not os.path.exists(forlderPath):
-                os.makedirs(forlderPath)
+        source = folders['sourceProject']['root'] + "\\" + fileTypeValue['folderName']
+        dest = folders['targetProject']['root'] + "\\"  + fileTypeValue['folderName']
 
-    #unzip c3p files
-    with zipfile.ZipFile(projectPath, 'r') as zip_ref:
-        zip_ref.extractall(folders['project']['root'])
+        if(os.path.exists(source)):
+            fileTypeValue['copyFiles'] = 'true'
+            if(not os.path.exists(dest)):
+                os.mkdir(dest)
 
-    extractedProjectPath = folders['project']['root']
+            src_files = os.listdir(source)
+            for file_name in src_files:
+                full_file_name = os.path.join(source, file_name)
+                
+                if os.path.isfile(full_file_name):
+                    if(not os.path.exists(folders['targetProject']['root'] + "\\" + fileTypeValue['folderName'] + "\\" + file_name)):
+                        shutil.copy(full_file_name, dest)
+                    else:
+                        raise ValueError("File already exists in the targeted project: " + file_name)
+        else:
+            fileTypeValue['copyFiles'] = 'false'
+def importPack_updateMetaData():
+    c3Proj = {'sourceProject' : {}, 'targetProject' : {}}
 
-    #create info.json file
-    info = exportPack_infoFile(extractedProjectPath, packName, author, version, eventSheetName)
+    #load project.c3proj
+    for project in ['sourceProject', 'targetProject']:
+        c3Proj[project] = ""
+        with open(folders[project]['root'] + "\\project.c3proj") as json_file:
+            c3Proj[project] = json.load(json_file)
+
+        
+
+
+    # update used addons
+    c3Proj['targetProject']['usedAddons'] += c3Proj['sourceProject']['usedAddons']
+
+    # update containers data
+    c3Proj['targetProject']['containers'] += c3Proj['sourceProject']['containers']
+
+    # update c3 meta data
+
+    for fileTypeKey, fileTypeValue in fileTypeList.items():
+
+            if fileTypeValue['metaData'] == 'true' and fileTypeValue['copyFiles'] == 'true':
+
+                # get source project file data
+
+                c3pmFolder = {'items':[], 'subfolders' : [], 'name' : 'c3Packs'}
+                fileData = {'items':[], 'subfolders' : [], 'name' : 'packageName'}
+                keyRootPath = {}
+                
+                if fileTypeValue['c3File'] == 'true':
+                    keyRootPath['source'] = c3Proj['sourceProject'][fileTypeKey]
+                    keyRootPath['target'] = c3Proj['targetProject'][fileTypeKey]
+                else:    
+                    keyRootPath['source'] = c3Proj['sourceProject']['rootFileFolders'][fileTypeKey]
+                    keyRootPath['target'] = c3Proj['targetProject']['rootFileFolders'][fileTypeKey]
+                
+                fileData['items'] = keyRootPath['source']['items']
+                fileData['subfolders'] = keyRootPath['source']['subfolders']
+               
+                keyRootPath['target']['subfolders'].append(c3pmFolder)
+
+                # set target project file data
+                
+                folderIndex = 0
+                for c3folder in keyRootPath['target']['subfolders']:
+                    if 'name' in c3folder:
+                        if c3folder['name'] == 'c3Packs':
+                            keyRootPath['target']['subfolders'][folderIndex]['subfolders'].append(fileData)
+
+                    folderIndex = folderIndex + 1    
+                    
+    with open(folders['targetProject']['root'] + '\\' + '\\project.c3proj', 'w') as outfile:
+        json.dump(c3Proj['targetProject'], outfile, indent=4)
+
+def importPack(sourceProjecPath, targetProjectPath):
     
-    with open(folders['pack']['info'] + '\info.json', 'w') as f:
-        json.dump(info, f)
 
-    #copy files
-    exportPack_copyFiles(extractedProjectPath, info)
+    try:
+        folders['sourceProject']['source'] = sourceProjecPath
+        folders['targetProject']['source'] = targetProjectPath
 
-    #create c3pack file
-    filename = include.formatFilename.format_filename(packName)
-    zipDir(folders['pack']['root'], packPath + "\\" + filename + '.c3pack')
-    
-
-    #remove temp files
-    if os.path.exists('temp'):
-        shutil.rmtree("temp")
-
-    #print(info)
-    
-def importPack(projectPath, packPath):
-    #create temp file folders
-    for folderKey, forlderPath in folders.items():
-        if not os.path.exists(forlderPath):
-            os.makedirs(forlderPath)
-
-    #unzip c3p files
-    with zipfile.ZipFile(projectPath, 'r') as zip_ref:
-        zip_ref.extractall(folders['project']['root'])
-
-    #unzip c3p files
-    with zipfile.ZipFile(packPath, 'r') as zip_ref:
-        zip_ref.extractall(folders['pack']['root'])
+        #remove old temp files
+        if (os.path.exists('temp')):
+            shutil.rmtree('temp')
+        
+        #unzip projects on temp folders
+        for project in ['sourceProject', 'targetProject']:
+            if (not os.path.exists(folders[project]['root'])):
+                os.makedirs(folders[project]['root'])
+            
+            with zipfile.ZipFile(folders[project]['source'], 'r') as zip_ref:
+                    zip_ref.extractall(folders[project]['root'])
+        
 
 
+        #c3pm magic
+        importPack_extractFiles()
+        importPack_updateMetaData()
 
-    #remove temp files
-    if os.path.exists('temp'):
-        shutil.rmtree("temp")
+
+        # export packed project
+        zipPath = targetProjectPath.split('.')[0] + "_pack.c3p"
+        zipDir(folders['targetProject']['root'], zipPath)
+        print("true")
+    except Exception as e:
+        print("Oops... We had a problem")
+        print(e)
 
 def main():
-        
-    print("Exporting pack...")
-    exportPack("C:\\Users\\renan\\Desktop\\c3pmTest\\export_project.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest","Pack name", "Author name", "1.0.0.0", "Event sheet 1")
-    print("Pack exported!")
 
-    #importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\import_project.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\Pack_name.c3pack")
+    importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\source_project.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\target_project.c3p")
+
 
 if __name__== "__main__":
     main()
