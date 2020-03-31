@@ -7,5 +7,3 @@ Construct 3 Pack Manager is a tool that helps you to make your c3 development mo
 
 C3PM is current in alpha, you can download it here.
 
-# How to use
-
