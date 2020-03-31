@@ -30,7 +30,7 @@ fileTypeList = {
     'music' : {'folderName' : 'music', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'},
     'video' : {'folderName' : 'videos', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'},
     'font' : {'folderName' : 'fonts', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'},
-    'general' : {'folderName' : 'fonts', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'}
+    'general' : {'folderName' : 'files', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'}
 }
 
 
@@ -143,10 +143,10 @@ def importPack(sourceProjecPath, targetProjectPath):
         # export packed project
         zipPath = targetProjectPath.split('.')[0] + "_pack.c3p"
         zipDir(folders['targetProject']['root'], zipPath)
-        print("true")
+        return {'status':'sucess', 'projectName' : zipPath}
     except Exception as e:
-        print("Oops... We had a problem")
-        print(e)
+        
+        return {'status':'fail', 'error':e}
 
 def main():
 

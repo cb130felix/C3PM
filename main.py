@@ -1,17 +1,68 @@
 import c3pm
 import sys
+import colorama
+from termcolor import colored
+import os
+import tkinter as tk
+from tkinter import filedialog
+
+
+def openFileExplorer():
+    root = tk.Tk()
+    root.withdraw()
+
+    file_path = filedialog.askopenfilename()
+    return file_path
 
 def main():
 
+
+
     #c3pm.importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\source_project.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\target_project.c3p")
-   
-    if len(sys.argv) > 1:
-        if sys.argv[1] == 'import':
-            c3pm.importPack(sys.argv[2], sys.argv[3])
-        else:
-            print('false')
+    clear = lambda: os.system('cls')
+    padValue = 60
+    version = "0.1a"
+
+    title = ' Construct 3 Pack Manager by Relixes'
+    
+    print("".center(padValue, '-'))
+    print(title.center(padValue, '-'))
+    print("".center(padValue, '-'))
+    print("Version: " + version)
+    print("contact: renanfelixrodrigues@gmail.com")
+    print("Info: Construct 3 Pack manager (C3PM) is a tool to share content between construct 3 projects!")
+
+    input("\n\n-> Press 'Enter' to get started...")
+    clear()
+
+    print("".center(padValue, '-'))
+    print(" Select the c3p source ".center(padValue, '-'))
+    print("".center(padValue, '-'))
+    input('\n\n-> Select c3p file that is source of the files to be imported (press enter to open file explorer)...')
+    clear()
+    sourceProjectPath = openFileExplorer()
+    
+    print("".center(padValue, '-'))
+    print(" Select the c3p target ".center(padValue, '-'))
+    print("".center(padValue, '-'))
+    input('\n\n-> Now select the target c3p file that will have the data imported (press enter to open file explorer)...')
+    clear()
+    targetProjectPath = openFileExplorer()
+
+
+    print("Source project: " + sourceProjectPath)
+    print("Target project: " + targetProjectPath)
+ 
+    print('\nImporting pack...\n')
+    result = c3pm.importPack(sourceProjectPath, targetProjectPath)
+    
+    if(result['status'] == 'sucess'):
+        print("* Sucess! The pack was imported! A new c3p file with the pack content was created in the target project folder!")
     else:
-        print('false')
+        print("* Oops... We had a problem. Error: ")
+        print(result['error'])
+        
+    input("-> Press any key to close the program...")
 
 if __name__== "__main__":
     main()
