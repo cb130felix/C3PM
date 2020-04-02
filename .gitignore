@@ -1,0 +1,6 @@
+dist/
+temp/
+*.bat
+.vscode
+__pycache__/
+setup.py

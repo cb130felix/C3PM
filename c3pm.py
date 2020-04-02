@@ -114,13 +114,18 @@ def importPack_updateMetaData():
     with open(folders['targetProject']['root'] + '\\' + '\\project.c3proj', 'w') as outfile:
         json.dump(c3Proj['targetProject'], outfile, indent=4)
 
-def importPack(sourceProjecPath, targetProjectPath):
+def importPack(sourceProjecPath, targetProjectPath, useOriginalFile):
     
 
     try:
         folders['sourceProject']['source'] = sourceProjecPath
         folders['targetProject']['source'] = targetProjectPath
 
+        # create c3p backup
+
+        backupPath = folders['targetProject']['source'].split('.')[0] + "_backup.c3p"
+        shutil.copy(folders['targetProject']['source'], backupPath)
+        
         #remove old temp files
         if (os.path.exists('temp')):
             shutil.rmtree('temp')
@@ -133,24 +138,31 @@ def importPack(sourceProjecPath, targetProjectPath):
             with zipfile.ZipFile(folders[project]['source'], 'r') as zip_ref:
                     zip_ref.extractall(folders[project]['root'])
         
-
-
+        
         #c3pm magic
         importPack_extractFiles()
         importPack_updateMetaData()
 
 
         # export packed project
-        zipPath = targetProjectPath.split('.')[0] + "_pack.c3p"
+        
+        zipPath = ""
+        if(useOriginalFile):
+            zipPath = folders['targetProject']['source']
+        else:
+            zipPath = folders['targetProject']['source'].split('.')[0] + "_c3packed.c3p"
+        
+        
         zipDir(folders['targetProject']['root'], zipPath)
         return {'status':'sucess', 'projectName' : zipPath}
+
     except Exception as e:
-        
+        #raise
         return {'status':'fail', 'error':e}
 
 def main():
 
-    importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\source_project.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\target_project.c3p")
+    importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\source_project.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\target_project.c3p", False)
 
 
 if __name__== "__main__":

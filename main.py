@@ -36,25 +36,25 @@ def main():
     clear()
 
     print("".center(padValue, '-'))
-    print(" Select the c3p source ".center(padValue, '-'))
+    print(" Select the Construct 3 project ".center(padValue, '-'))
     print("".center(padValue, '-'))
-    input('\n\n-> Select c3p file that is source of the files to be imported (press enter to open file explorer)...')
-    clear()
-    sourceProjectPath = openFileExplorer()
-    
-    print("".center(padValue, '-'))
-    print(" Select the c3p target ".center(padValue, '-'))
-    print("".center(padValue, '-'))
-    input('\n\n-> Now select the target c3p file that will have the data imported (press enter to open file explorer)...')
+    input('\n\n-> Select c3p file that will import the c3Pack (press enter to open file explorer)...')
     clear()
     targetProjectPath = openFileExplorer()
+    
+    print("".center(padValue, '-'))
+    print(" Select the C3 Pack ".center(padValue, '-'))
+    print("".center(padValue, '-'))
+    input('\n\n-> Now select the the c3 pack (press enter to open file explorer)...')
+    clear()
+    sourceProjectPath = openFileExplorer()
 
 
-    print("Source project: " + sourceProjectPath)
-    print("Target project: " + targetProjectPath)
+    print("Construct 3 project: " + targetProjectPath)
+    print("C3 Pack: " + sourceProjectPath)
  
     print('\nImporting pack...\n')
-    result = c3pm.importPack(sourceProjectPath, targetProjectPath)
+    result = c3pm.importPack(sourceProjectPath, targetProjectPath, True)
     
     if(result['status'] == 'sucess'):
         print("* Sucess! The pack was imported! A new c3p file with the pack content was created in the target project folder!")
