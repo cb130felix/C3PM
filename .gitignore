@@ -5,3 +5,4 @@ temp/
 .vscode
 __pycache__/
 setup.py
+teste.py

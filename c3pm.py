@@ -101,18 +101,26 @@ def importPack_updateMetaData():
                 fileData['items'] = keyRootPath['source']['items']
                 fileData['subfolders'] = keyRootPath['source']['subfolders']
                
-                keyRootPath['target']['subfolders'].append(c3pmFolder)
-
                 # set target project file data
                 
                 folderIndex = 0
+                createC3packFolder = True
+                
                 for c3folder in keyRootPath['target']['subfolders']:
+    
                     if 'name' in c3folder:
                         if c3folder['name'] == 'c3Packs':
-                            keyRootPath['target']['subfolders'][folderIndex]['subfolders'].append(fileData)
-
+                            createC3packFolder = False
+                            break
+        
                     folderIndex = folderIndex + 1    
                     
+                if createC3packFolder:
+                    keyRootPath['target']['subfolders'].append(c3pmFolder)
+                    folderIndex = len(keyRootPath['target']['subfolders']) -1
+                        
+                keyRootPath['target']['subfolders'][folderIndex]['subfolders'].append(fileData)
+                            
     with open(folders['targetProject']['root'] + '\\' + '\\project.c3proj', 'w') as outfile:
         json.dump(c3Proj['targetProject'], outfile, indent=4)
 
@@ -159,13 +167,14 @@ def importPack(sourceProjecPath, targetProjectPath, useOriginalFile):
         return {'status':'sucess', 'projectName' : zipPath}
 
     except Exception as e:
-        #raise
+        raise
         return {'status':'fail', 'error':e}
+
 
 def main():
 
-    importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\source_project.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\target_project.c3p", False)
-
-
+    importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\[c3pack] Color Blink r_18902.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\sampleTemplate.c3p", False)
+    importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\[C3pack] Shadow Trail r_18902.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\sampleTemplate_c3packed.c3p", False)
+    
 if __name__== "__main__":
     main()
