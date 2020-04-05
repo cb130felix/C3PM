@@ -30,7 +30,7 @@ def main():
     print("".center(padValue, '-'))
     print("Version: " + version)
     print("contact: renanfelixrodrigues@gmail.com")
-    print("Info: Construct 3 Pack manager (C3PM) is a tool to share content between construct 3 projects!")
+    print("Info: Construct 3 Pack manager (C3PM) is a tool to share content between construct 3 projects through c3 packs.")
 
     input("\n\n-> Press 'Enter' to get started...")
     clear()
@@ -38,14 +38,14 @@ def main():
     print("".center(padValue, '-'))
     print(" Select the Construct 3 project ".center(padValue, '-'))
     print("".center(padValue, '-'))
-    input('\n\n-> Select c3p file that will import the c3Pack (press enter to open file explorer)...')
+    input('\n\n-> Select the c3p file that will import the c3Pack (press enter to open file explorer)...')
     clear()
     targetProjectPath = openFileExplorer()
     
     print("".center(padValue, '-'))
     print(" Select the C3 Pack ".center(padValue, '-'))
     print("".center(padValue, '-'))
-    input('\n\n-> Now select the the c3 pack (press enter to open file explorer)...')
+    input('\n\n-> Now select the the c3pack file (press enter to open file explorer)...')
     clear()
     sourceProjectPath = openFileExplorer()
 

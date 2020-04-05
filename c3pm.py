@@ -71,12 +71,14 @@ def importPack_updateMetaData():
         
 
 
+
     # update used addons
     c3Proj['targetProject']['usedAddons'] += c3Proj['sourceProject']['usedAddons']
 
     # update containers data
     c3Proj['targetProject']['containers'] += c3Proj['sourceProject']['containers']
 
+    packageName = c3Proj['sourceProject']['name']
     # update c3 meta data
 
     for fileTypeKey, fileTypeValue in fileTypeList.items():
@@ -86,7 +88,7 @@ def importPack_updateMetaData():
                 # get source project file data
 
                 c3pmFolder = {'items':[], 'subfolders' : [], 'name' : 'c3Packs'}
-                fileData = {'items':[], 'subfolders' : [], 'name' : 'packageName'}
+                fileData = {'items':[], 'subfolders' : [], 'name' : packageName}
                 keyRootPath = {}
                 
                 if fileTypeValue['c3File'] == 'true':
