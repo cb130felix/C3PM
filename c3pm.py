@@ -34,7 +34,6 @@ fileTypeList = {
     'general' : {'folderName' : 'files', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'}
 }
 
-
 def importPack_extractFiles():
    
     

@@ -1,3 +1,4 @@
+
 dist/
 build/
 temp/
@@ -5,5 +6,6 @@ backups/
 *.bat
 .vscode
 __pycache__/
+venv/
 setup.py
 teste.py
