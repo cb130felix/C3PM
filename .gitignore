@@ -1,6 +1,7 @@
 dist/
 build/
 temp/
+backups/
 *.bat
 .vscode
 __pycache__/
