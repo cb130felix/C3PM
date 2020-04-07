@@ -9,28 +9,48 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-
+import c3pm
 
 class Ui_MainWindow(object):
-    
+
+    version = '0.3'
+
+    def getInfo(self):
+        return "Version: " + self.version + "\nCreated by Relixes"
+
     def searchC3Pack(self):
-        print("serch pack")
+        filename = ""
         filename = QtWidgets.QFileDialog.getOpenFileName(filter='*.c3pack')[0]
-        self.lineEdit_c3pack.setText(filename)
+        if filename != "":
+            self.lineEdit_c3pack.setText(filename)
         
     
     def searchProject(self):
-        print("serch project")
+        filename = ""
         filename = QtWidgets.QFileDialog.getOpenFileName(filter='*.c3p;*.c3proj')[0]
-        self.lineEdit_c3project.setText(filename)
+        if filename != "":
+            self.lineEdit_c3project.setText(filename)
 
     def importPack(self):
-        print("import pack")
         msgBox = QMessageBox()
-        msgBox.setWindowTitle("Hey!")
-        msgBox.setText("this is the text")
-        msgBox.setIcon(QMessageBox.Critical)
+        overwriteRepeatedFiles = self.checkBox.isChecked()
+        result = c3pm.importPack(self.lineEdit_c3pack.text(), self.lineEdit_c3project.text(), True, overwriteRepeatedFiles)
+        
+        if(result['status'] == 'sucess'):
+            msgBox.setWindowTitle("Pack imported!")
+            msgBox.setText("The pack was imported into the project sucessfully!")
+            msgBox.setIcon(QMessageBox.Information)
+            print("Pack imported succesfully")
 
+        else:
+            
+            msgBox.setWindowTitle("Oops... We had a problem")
+            msgBox.setText("Error:\n" + str(result['error']))
+            msgBox.setIcon(QMessageBox.Critical)
+
+            print("Error importing pack:")
+            print(result['error'])
+            
         msgBox.exec_()
         
 
@@ -59,7 +79,7 @@ class Ui_MainWindow(object):
         self.label_3.setObjectName("label_3")
         
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(440, 240, 81, 41))
+        self.label_4.setGeometry(QtCore.QRect(400, 240, 100, 41))
         self.label_4.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing)
         self.label_4.setObjectName("label_4")
         
@@ -86,6 +106,8 @@ class Ui_MainWindow(object):
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox.setGeometry(QtCore.QRect(80, 180, 401, 17))
         self.checkBox.setObjectName("checkBox")
+
+        
         
         #line edits
         self.lineEdit_c3project = QtWidgets.QLineEdit(self.centralwidget)
@@ -113,18 +135,19 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "C3PM"))
         self.pushButton_searchProject.setText(_translate("MainWindow", "Search file"))
         self.pushButton_importPack.setText(_translate("MainWindow", "Apply pack into project"))
         self.label.setText(_translate("MainWindow", "Set the path of Construct 3 project to import pack into"))
         self.pushButton_searchPack.setText(_translate("MainWindow", "Search file"))
         self.label_2.setText(_translate("MainWindow", "Set the path of a C3 Pack file to import into the project"))
         self.label_3.setText(_translate("MainWindow", "Construct 3 Pack Manager"))
-        self.label_4.setText(_translate("MainWindow", "Info"))
+        self.label_4.setText(_translate("MainWindow", self.getInfo()))
         self.checkBox.setText(_translate("MainWindow", "Overwrite duplicate files (check this option if you\'re updating a pack for a new version)"))
 
 
 if __name__ == "__main__":
+    print("Starting C3PM...")
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()

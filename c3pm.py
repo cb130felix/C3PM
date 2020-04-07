@@ -34,7 +34,7 @@ fileTypeList = {
     'general' : {'folderName' : 'files', 'copyFiles' : 'true', 'metaData' : 'true', 'c3File' : 'false'}
 }
 
-def importPack_extractFiles():
+def importPack_extractFiles(overwriteRepeatedFiles):
    
     
     #copy project files
@@ -53,7 +53,7 @@ def importPack_extractFiles():
                 full_file_name = os.path.join(source, file_name)
                 
                 if os.path.isfile(full_file_name):
-                    if(not os.path.exists(folders['c3Project']['root'] + "\\" + fileTypeValue['folderName'] + "\\" + file_name)):
+                    if(not os.path.exists(folders['c3Project']['root'] + "\\" + fileTypeValue['folderName'] + "\\" + file_name) or (overwriteRepeatedFiles)):
                         shutil.copy(full_file_name, dest)
                     else:
                         raise ValueError("File already exists in the targeted project: " + file_name)
@@ -140,7 +140,7 @@ def importPack_createBackup(fileData):
 
     zipDir(folders['c3Project']['root'], backupPath)
 
-def importPack(packPath, projectPath, writeOverOriginalFiles):
+def importPack(packPath, projectPath, writeOverOriginalFiles, overwriteRepeatedFiles):
     
 
     try:
@@ -210,7 +210,7 @@ def importPack(packPath, projectPath, writeOverOriginalFiles):
         
         
         print("Importing files")
-        importPack_extractFiles()
+        importPack_extractFiles(overwriteRepeatedFiles)
     
         print("Updating meta data")
         importPack_updateMetaData()
@@ -230,14 +230,14 @@ def importPack(packPath, projectPath, writeOverOriginalFiles):
         return {'status':'sucess', 'projectName' : zipPath}
 
     except Exception as e:
-        raise
+        #raise
         return {'status':'fail', 'error':e}
 
 
 def main():
 
     #c3p file test
-    importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\[c3pack] Color Blink r_18902.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\sampleTemplate.c3p", False)
+    importPack("C:\\Users\\renan\\Desktop\\C3PM files\\packs\\[c3pack] Color Blink r_18902.c3pack", "C:\\Users\\renan\Desktop\\C3PM files\\projects\\sampleTemplate.c3p", True, True)
     
     #c3proj file test
     #importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\[c3pack] Color Blink r_18902.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\sampleProject\\project.c3proj", False)
