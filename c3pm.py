@@ -7,7 +7,7 @@ import zipfile
 from datetime import datetime
 
 
-folders = {'c3Pack' : {'source' : '', 'root' : 'temp\\c3Pack'}, 'c3Project' : {'source' : '', 'root' : 'temp\\c3Project'}, 'backup' : 'backups'}
+folders = {'c3Pack' : {'source' : '', 'root' : 'temp/c3Pack'}, 'c3Project' : {'source' : '', 'root' : 'temp/c3Project'}, 'backup' : 'backups'}
 
 def zipDir(dirPath, zipPath):
     zipf = zipfile.ZipFile(zipPath , mode='w')
@@ -40,8 +40,8 @@ def importPack_extractFiles(overwriteRepeatedFiles):
     #copy project files
     for fileTypeKey, fileTypeValue in fileTypeList.items():
         
-        source = folders['c3Pack']['root'] + "\\" + fileTypeValue['folderName']
-        dest = folders['c3Project']['root'] + "\\"  + fileTypeValue['folderName']
+        source = folders['c3Pack']['root'] + "/" + fileTypeValue['folderName']
+        dest = folders['c3Project']['root'] + "/"  + fileTypeValue['folderName']
 
         if(os.path.exists(source)):
             fileTypeValue['copyFiles'] = 'true'
@@ -53,7 +53,7 @@ def importPack_extractFiles(overwriteRepeatedFiles):
                 full_file_name = os.path.join(source, file_name)
                 
                 if os.path.isfile(full_file_name):
-                    if(not os.path.exists(folders['c3Project']['root'] + "\\" + fileTypeValue['folderName'] + "\\" + file_name) or (overwriteRepeatedFiles)):
+                    if(not os.path.exists(folders['c3Project']['root'] + "/" + fileTypeValue['folderName'] + "/" + file_name) or (overwriteRepeatedFiles)):
                         shutil.copy(full_file_name, dest)
                     else:
                         raise ValueError("File already exists in the targeted project: " + file_name)
@@ -66,7 +66,7 @@ def importPack_updateMetaData():
     #load project.c3proj
     for project in ['c3Pack', 'c3Project']:
         c3Proj[project] = ""
-        with open(folders[project]['root'] + "\\project.c3proj") as json_file:
+        with open(folders[project]['root'] + "/project.c3proj") as json_file:
             c3Proj[project] = json.load(json_file)
 
         
@@ -119,10 +119,10 @@ def importPack_updateMetaData():
                 if createC3packFolder:
                     keyRootPath['c3Project']['subfolders'].append(c3pmFolder)
                     folderIndex = len(keyRootPath['c3Project']['subfolders']) -1
-                        
+
                 keyRootPath['c3Project']['subfolders'][folderIndex]['subfolders'].append(fileData)
                             
-    with open(folders['c3Project']['root'] + '\\' + '\\project.c3proj', 'w') as outfile:
+    with open(folders['c3Project']['root'] + '/' + '/project.c3proj', 'w') as outfile:
         json.dump(c3Proj['c3Project'], outfile, indent=4)
 
 def importPack_createBackup(fileData):
@@ -132,7 +132,7 @@ def importPack_createBackup(fileData):
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("%d-%b-%Y(%H-%M-%S)")
     
-    backupPath = folders['backup'] + "\\" + projectName + "_" + timestampStr + ".c3p"
+    backupPath = folders['backup'] + "/" + projectName + "_" + timestampStr + ".c3p"
     print('path: ' + backupPath)
 
     if (not os.path.exists(folders['backup'])):
@@ -200,7 +200,7 @@ def importPack(packPath, projectPath, writeOverOriginalFiles, overwriteRepeatedF
   
         #load c3proj json data        
         for projectType in ['c3Pack', 'c3Project']:
-            with open(folders[projectType]['root'] + "\\project.c3proj") as json_file:
+            with open(folders[projectType]['root'] + "/project.c3proj") as json_file:
                 fileData[projectType]['c3proj'] = json.load(json_file)
 
         #c3pm magic
@@ -237,13 +237,13 @@ def importPack(packPath, projectPath, writeOverOriginalFiles, overwriteRepeatedF
 def main():
 
     #c3p file test
-    importPack("C:\\Users\\renan\\Desktop\\C3PM files\\packs\\[c3pack] Color Blink r_18902.c3pack", "C:\\Users\\renan\Desktop\\C3PM files\\projects\\sampleTemplate.c3p", True, True)
+    importPack("C:/Users/renan/Desktop/C3PM files/packs/[c3pack] Color Blink r_18902.c3pack", "C:/Users/renan/Desktop/C3PM files/projects/sampleTemplate.c3p", True, True)
     
     #c3proj file test
-    #importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\[c3pack] Color Blink r_18902.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\sampleProject\\project.c3proj", False)
+    #importPack("C:/Users/renan/Desktop/c3pmTest/[c3pack] Color Blink r_18902.c3p", "C:/Users/renan/Desktop/c3pmTest/sampleProject/project.c3proj", False)
     
     
-    #importPack("C:\\Users\\renan\\Desktop\\c3pmTest\\[C3pack] Shadow Trail r_18902.c3p", "C:\\Users\\renan\\Desktop\\c3pmTest\\sampleTemplate_c3packed.c3p", False)
+    #importPack("C:/Users/renan/Desktop/c3pmTest/[C3pack] Shadow Trail r_18902.c3p", "C:/Users/renan/Desktop/c3pmTest/sampleTemplate_c3packed.c3p", False)
     
 if __name__== "__main__":
     main()
