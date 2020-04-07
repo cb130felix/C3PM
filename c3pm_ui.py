@@ -63,15 +63,15 @@ class Ui_MainWindow(object):
         #labels
         
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(80, 70, 251, 16))
+        self.label.setGeometry(QtCore.QRect(80, 70, 300, 16))
         self.label.setObjectName("label")
         
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(80, 130, 281, 16))
+        self.label_2.setGeometry(QtCore.QRect(80, 130, 300, 16))
         self.label_2.setObjectName("label_2")
         
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(30, 20, 461, 31))
+        self.label_3.setGeometry(QtCore.QRect(45, 20, 461, 31))
         font = QtGui.QFont()
         font.setPointSize(24)
         self.label_3.setFont(font)
@@ -104,7 +104,7 @@ class Ui_MainWindow(object):
         #check box
 
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox.setGeometry(QtCore.QRect(80, 180, 401, 17))
+        self.checkBox.setGeometry(QtCore.QRect(80, 180, 501, 17))
         self.checkBox.setObjectName("checkBox")
 
         
