@@ -1,7 +1,6 @@
 import c3pm
 import sys
 import colorama
-from termcolor import colored
 import os
 import tkinter as tk
 from tkinter import filedialog
