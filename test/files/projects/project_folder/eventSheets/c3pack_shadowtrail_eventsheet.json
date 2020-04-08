@@ -1,0 +1,263 @@
+{
+	"name": "c3pack_shadowTrail_eventSheet",
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-created",
+					"objectClass": "c3pack_shadowTrail",
+					"sid": 726489394004526
+				}
+			],
+			"actions": [
+				{
+					"id": "start-timer",
+					"objectClass": "c3pack_shadowTrail",
+					"sid": 139112534002540,
+					"behaviorType": "trailTimer",
+					"parameters": {
+						"duration": "c3pack_shadowTrail.trailFrequency",
+						"type": "once",
+						"tag": "\"trail\""
+					}
+				}
+			],
+			"sid": 698897213953437
+		},
+		{
+			"eventType": "variable",
+			"name": "R",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 372009760015256
+		},
+		{
+			"eventType": "variable",
+			"name": "G",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 765931161431784
+		},
+		{
+			"eventType": "variable",
+			"name": "B",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 908357643863110
+		},
+		{
+			"eventType": "variable",
+			"name": "A",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 220469911659873
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-timer",
+					"objectClass": "c3pack_shadowTrail",
+					"sid": 140741245600121,
+					"behaviorType": "trailTimer",
+					"parameters": {
+						"tag": "\"trail\""
+					}
+				}
+			],
+			"actions": [],
+			"sid": 612370152171190,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 776532710212710,
+							"parameters": {
+								"object": "c3pack_shadowTrail"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "start-timer",
+							"objectClass": "c3pack_shadowTrail",
+							"sid": 508740738245066,
+							"behaviorType": "trailTimer",
+							"parameters": {
+								"duration": "Self.trailFrequency",
+								"type": "once",
+								"tag": "\"trail\""
+							}
+						}
+					],
+					"sid": 873010435094961,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "c3pack_shadowTrail",
+									"sid": 784469886564612,
+									"parameters": {
+										"instance-variable": "trailEnabled"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "spawn-another-object",
+									"objectClass": "c3pack_shadowTrail",
+									"sid": 692681802489325,
+									"parameters": {
+										"object": "c3pack_shadowTrail_canvas",
+										"layer": "c3pack_shadowTrail.LayerName",
+										"image-point": "0"
+									}
+								},
+								{
+									"id": "set-size",
+									"objectClass": "c3pack_shadowTrail_canvas",
+									"sid": 627523966847552,
+									"parameters": {
+										"width": "abs(c3pack_shadowTrail.Width)",
+										"height": "abs(c3pack_shadowTrail.Height)"
+									}
+								},
+								{
+									"id": "set-position",
+									"objectClass": "c3pack_shadowTrail_canvas",
+									"sid": 619809078776806,
+									"parameters": {
+										"x": "c3pack_shadowTrail.BBoxLeft",
+										"y": "c3pack_shadowTrail.BBoxTop"
+									}
+								},
+								{
+									"id": "set-fade-out-time",
+									"objectClass": "c3pack_shadowTrail_canvas",
+									"sid": 459149171946388,
+									"behaviorType": "Fade",
+									"parameters": {
+										"fade-out-time": "c3pack_shadowTrail.trailFadeOutTime"
+									}
+								},
+								{
+									"id": "paste-object",
+									"objectClass": "c3pack_shadowTrail_canvas",
+									"sid": 729449430140733,
+									"parameters": {
+										"object": "c3pack_shadowTrail",
+										"effects": "with-effects"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 311631306858980,
+									"parameters": {
+										"variable": "R",
+										"value": "tokenat(c3pack_shadowTrail.trailColor, 0, \",\")"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 660618005535825,
+									"parameters": {
+										"variable": "G",
+										"value": "tokenat(c3pack_shadowTrail.trailColor, 1, \",\")"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 499008905988731,
+									"parameters": {
+										"variable": "B",
+										"value": "tokenat(c3pack_shadowTrail.trailColor, 2, \",\")"
+									}
+								},
+								{
+									"id": "set-default-color",
+									"objectClass": "c3pack_shadowTrail_canvas",
+									"sid": 776768210133484,
+									"parameters": {
+										"color": "rgbEx(R,G,B)"
+									}
+								}
+							],
+							"sid": 398283312466955,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-boolean-instance-variable-set",
+											"objectClass": "c3pack_shadowTrail",
+											"sid": 831933027785592,
+											"parameters": {
+												"instance-variable": "trailOverObject"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "move-to-object",
+											"objectClass": "c3pack_shadowTrail_canvas",
+											"sid": 529556242058655,
+											"parameters": {
+												"where": "in-front",
+												"object": "c3pack_shadowTrail"
+											}
+										}
+									],
+									"sid": 638614295635685
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 587403487171155
+										}
+									],
+									"actions": [
+										{
+											"id": "move-to-object",
+											"objectClass": "c3pack_shadowTrail_canvas",
+											"sid": 472210771730692,
+											"parameters": {
+												"where": "behind",
+												"object": "c3pack_shadowTrail"
+											}
+										}
+									],
+									"sid": 823469558097463
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"sid": 636351351437440
+}

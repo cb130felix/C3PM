@@ -1,0 +1,177 @@
+{
+	"name": "Event sheet 1",
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "for-each",
+					"objectClass": "System",
+					"sid": 275313522357506,
+					"parameters": {
+						"object": "Sprite"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 156606680627930,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 484482175326469,
+							"parameters": {
+								"first-value": "Sprite.Platform.VectorX",
+								"comparison": 4,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-mirrored",
+							"objectClass": "Sprite",
+							"sid": 415063449451164,
+							"parameters": {
+								"state": "not-mirrored"
+							}
+						}
+					],
+					"sid": 745415172794675
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 917842159374967
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 416134118630592,
+							"parameters": {
+								"first-value": "Sprite.Platform.VectorX",
+								"comparison": 2,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-mirrored",
+							"objectClass": "Sprite",
+							"sid": 468572796164682,
+							"parameters": {
+								"state": "mirrored"
+							}
+						}
+					],
+					"sid": 680006945833455
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-on-floor",
+							"objectClass": "Sprite",
+							"sid": 312241431407945,
+							"behaviorType": "Platform"
+						}
+					],
+					"actions": [],
+					"sid": 969991850376637,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-moving",
+									"objectClass": "Sprite",
+									"sid": 863781370182176,
+									"behaviorType": "Platform"
+								}
+							],
+							"actions": [
+								{
+									"id": "set-animation",
+									"objectClass": "Sprite",
+									"sid": 431412309393464,
+									"parameters": {
+										"animation": "\"walk\"",
+										"from": "beginning"
+									}
+								}
+							],
+							"sid": 211581527987111
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 990159571567469
+								}
+							],
+							"actions": [
+								{
+									"id": "set-animation",
+									"objectClass": "Sprite",
+									"sid": 909087941189832,
+									"parameters": {
+										"animation": "\"idle\"",
+										"from": "beginning"
+									}
+								}
+							],
+							"sid": 245726977263017
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 811761734244893
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "Sprite",
+							"sid": 146118681932427,
+							"parameters": {
+								"animation": "\"jumping\"",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 922549694088763
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-animation-playing",
+							"objectClass": "Sprite",
+							"sid": 414362069181687,
+							"parameters": {
+								"animation": "\"walk\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 844900119965729
+				}
+			]
+		}
+	],
+	"sid": 886175628528331
+}

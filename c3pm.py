@@ -230,20 +230,45 @@ def importPack(packPath, projectPath, writeOverOriginalFiles, overwriteRepeatedF
         return {'status':'sucess', 'projectName' : zipPath}
 
     except Exception as e:
-        #raise
+        raise
         return {'status':'fail', 'error':e}
 
+def runTests():
+
+    # set test enviroment
+    filesPath = 'test/files'
+    copyPath = 'test/copy'
+    if os.path.exists(copyPath):
+        shutil.rmtree(copyPath)
+    
+    if os.path.exists(filesPath):
+        shutil.copytree(filesPath, copyPath)
+
+    # 1 pack test
+    print("------------")
+    print("Test: Importing 1 pack into project")
+    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack.c3p", True, True)
+    
+    # Update pack test
+    print("------------")
+    print("Test: Importing the same packs into project 2 times")
+    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack_update.c3p", True, True)
+    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack_update.c3p", True, True)
+    
+    # folder project test
+    print("------------")
+    print("Test: Importing 1 pack into a folder project")
+    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/files/projects/project_folder/project.c3proj", True, True)
+    
+    # 2 packs test
+    print("------------")
+    print("Test: Importing 2 diferent packs into project")
+    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_2packs.c3p", True, True)
+    importPack("test/copy/packs/[C3pack] Shadow Trail r_18902.c3pack", "test/copy/projects/project_2packs.c3p", True, True)
 
 def main():
-
-    #c3p file test
-    importPack("C:/Users/renan/Desktop/C3PM files/packs/[c3pack] Color Blink r_18902.c3pack", "C:/Users/renan/Desktop/C3PM files/projects/sampleTemplate.c3p", True, True)
+    runTests()
     
-    #c3proj file test
-    #importPack("C:/Users/renan/Desktop/c3pmTest/[c3pack] Color Blink r_18902.c3p", "C:/Users/renan/Desktop/c3pmTest/sampleProject/project.c3proj", False)
-    
-    
-    #importPack("C:/Users/renan/Desktop/c3pmTest/[C3pack] Shadow Trail r_18902.c3p", "C:/Users/renan/Desktop/c3pmTest/sampleTemplate_c3packed.c3p", False)
     
 if __name__== "__main__":
     main()

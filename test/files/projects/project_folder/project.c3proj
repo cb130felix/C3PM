@@ -1,0 +1,325 @@
+{
+    "projectFormatVersion": 1,
+    "savedWithRelease": 19400,
+    "name": "New project",
+    "runtime": "c3",
+    "useWorker": true,
+    "bundleAddons": false,
+    "usedAddons": [
+        {
+            "type": "plugin",
+            "id": "Sprite",
+            "name": "Sprite",
+            "author": "Scirra",
+            "version": "r194",
+            "bundled": false
+        },
+        {
+            "type": "plugin",
+            "id": "Tilemap",
+            "name": "Tilemap",
+            "author": "Scirra",
+            "version": "r194",
+            "bundled": false
+        },
+        {
+            "type": "plugin",
+            "id": "TiledBg",
+            "name": "Tiled Background",
+            "author": "Scirra",
+            "version": "r194",
+            "bundled": false
+        },
+        {
+            "type": "behavior",
+            "id": "Platform",
+            "name": "Platform",
+            "author": "Scirra",
+            "version": "r194",
+            "bundled": false
+        },
+        {
+            "type": "behavior",
+            "id": "solid",
+            "name": "Solid",
+            "author": "Scirra",
+            "version": "r194",
+            "bundled": false
+        },
+        {
+            "type": "plugin",
+            "id": "Sprite",
+            "name": "Sprite",
+            "author": "Scirra",
+            "version": "r189.2",
+            "bundled": false
+        },
+        {
+            "type": "plugin",
+            "id": "Sprite",
+            "name": "Sprite",
+            "author": "Scirra",
+            "version": "r193",
+            "bundled": false
+        },
+        {
+            "type": "plugin",
+            "id": "DrawingCanvas",
+            "name": "Drawing canvas",
+            "author": "Scirra",
+            "version": "r193",
+            "bundled": false
+        },
+        {
+            "type": "behavior",
+            "id": "Fade",
+            "name": "Fade",
+            "author": "Scirra",
+            "version": "r193",
+            "bundled": false
+        },
+        {
+            "type": "behavior",
+            "id": "Timer",
+            "name": "Timer",
+            "author": "Scirra",
+            "version": "r193",
+            "bundled": false
+        }
+    ],
+    "uniqueId": "pzsypdqyw0l",
+    "objectTypes": {
+        "items": [
+            "Sprite",
+            "Tilemap",
+            "TiledBackground"
+        ],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": [
+                    {
+                        "items": [
+                            "c3pack_colorBlinkSample"
+                        ],
+                        "subfolders": [],
+                        "name": "Color Blink"
+                    },
+                    {
+                        "items": [
+                            "c3pack_shadowTrail_spriteSample",
+                            "c3pack_shadowTrail_canvas"
+                        ],
+                        "subfolders": [],
+                        "name": "Shadow Trail"
+                    }
+                ],
+                "name": "c3Packs"
+            }
+        ]
+    },
+    "autosaveData": null,
+    "containers": [],
+    "families": {
+        "items": [],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": [
+                    {
+                        "items": [
+                            "c3pack_colorBlink"
+                        ],
+                        "subfolders": [],
+                        "name": "Color Blink"
+                    },
+                    {
+                        "items": [
+                            "c3pack_shadowTrail"
+                        ],
+                        "subfolders": [],
+                        "name": "Shadow Trail"
+                    }
+                ],
+                "name": "c3Packs"
+            }
+        ]
+    },
+    "layouts": {
+        "items": [
+            "Layout 1"
+        ],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": [
+                    {
+                        "items": [
+                            "c3pack_colorBlinkLayout"
+                        ],
+                        "subfolders": [],
+                        "name": "Color Blink"
+                    },
+                    {
+                        "items": [
+                            "c3pack_shadowTrail_layout"
+                        ],
+                        "subfolders": [],
+                        "name": "Shadow Trail"
+                    }
+                ],
+                "name": "c3Packs"
+            }
+        ]
+    },
+    "eventSheets": {
+        "items": [
+            "Event sheet 1"
+        ],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": [
+                    {
+                        "items": [
+                            "c3pack_colorBlinkSheet"
+                        ],
+                        "subfolders": [],
+                        "name": "Color Blink"
+                    },
+                    {
+                        "items": [
+                            "c3pack_shadowTrail_eventSheet"
+                        ],
+                        "subfolders": [],
+                        "name": "Shadow Trail"
+                    }
+                ],
+                "name": "c3Packs"
+            }
+        ]
+    },
+    "rootFileFolders": {
+        "script": {
+            "items": [],
+            "subfolders": []
+        },
+        "sound": {
+            "items": [],
+            "subfolders": []
+        },
+        "music": {
+            "items": [],
+            "subfolders": []
+        },
+        "video": {
+            "items": [],
+            "subfolders": []
+        },
+        "font": {
+            "items": [],
+            "subfolders": []
+        },
+        "icon": {
+            "items": [
+                {
+                    "name": "icon-256.png",
+                    "type": "image/png",
+                    "sid": 434986732478977
+                },
+                {
+                    "name": "icon-16.png",
+                    "type": "image/png",
+                    "sid": 851778793474409
+                },
+                {
+                    "name": "icon-32.png",
+                    "type": "image/png",
+                    "sid": 975801469547032
+                },
+                {
+                    "name": "loading-logo.png",
+                    "type": "image/png",
+                    "sid": 185955780351712
+                },
+                {
+                    "name": "icon-64.png",
+                    "type": "image/png",
+                    "sid": 403451011455688
+                },
+                {
+                    "name": "icon-512.png",
+                    "type": "image/png",
+                    "sid": 212271183377604
+                },
+                {
+                    "name": "icon-128.png",
+                    "type": "image/png",
+                    "sid": 266870424923175
+                }
+            ],
+            "subfolders": []
+        },
+        "general": {
+            "items": [],
+            "subfolders": []
+        }
+    },
+    "timelines": {
+        "items": [],
+        "subfolders": [
+            {
+                "items": [],
+                "subfolders": []
+            }
+        ]
+    },
+    "properties": {
+        "description": "",
+        "version": "1.0.0.0",
+        "author": "",
+        "authorEmail": "",
+        "authorWebsite": "",
+        "appId": "",
+        "pixelRounding": true,
+        "useLoaderLayout": false,
+        "fullscreenMode": "letterbox-integer-scale",
+        "fullscreenQuality": "low",
+        "viewportFit": "auto",
+        "backgroundColor": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "splashColor": [
+            1,
+            1,
+            1,
+            0
+        ],
+        "useThemeColor": false,
+        "themeColor": [
+            1,
+            1,
+            1,
+            0
+        ],
+        "useHighDpi": true,
+        "orientations": "landscape",
+        "enableWebGL": true,
+        "gpuPreference": "high-performance",
+        "framerateMode": "vsync",
+        "compositingMode": "standard",
+        "sampling": "nearest",
+        "downscaling": "medium",
+        "maxSpriteSheetSize": 2048,
+        "loaderStyle": "splash",
+        "preloadSounds": true,
+        "clearBackground": true,
+        "enhancedAccelerationPrecision": true
+    },
+    "viewportWidth": 854,
+    "viewportHeight": 480,
+    "firstLayout": null
+}

@@ -1,0 +1,36 @@
+{
+	"name": "c3pack_colorBlink",
+	"plugin-id": "Sprite",
+	"sid": 283419304770420,
+	"instanceVariables": [
+		{
+			"name": "blinkFrames",
+			"type": "number",
+			"desc": "The amount of frames the object will blink. 60 blinks will make the sprite blink 1 second at 60 fps",
+			"sid": 367751558030850
+		},
+		{
+			"name": "blinkFrameDelay",
+			"type": "number",
+			"desc": "Change color after each <this value> frames while blinking. A higher value will make the blink seems slower, a lower value will make the blink looks faster",
+			"sid": 466816664431889
+		},
+		{
+			"name": "isBlinking",
+			"type": "boolean",
+			"desc": "True if the object is blinking ",
+			"sid": 614856998196587
+		},
+		{
+			"name": "colors",
+			"type": "string",
+			"desc": "Set of RGB colors the object will loop blinking. The amount of colors the object will blink is dynamic and depends on the amount of colors seted in this field. Every color should be separeted by a \"|\" character and should contain a Red Green and Blue value separet by a comma ( , ), like this \"100,100,100\"",
+			"sid": 184384950492736
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"members": [
+		"c3pack_colorBlinkSample"
+	]
+}

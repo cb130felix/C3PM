@@ -1,0 +1,48 @@
+{
+	"name": "c3pack_shadowTrail",
+	"plugin-id": "Sprite",
+	"sid": 744263251565099,
+	"instanceVariables": [
+		{
+			"name": "trailFadeOutTime",
+			"type": "number",
+			"desc": "The time in seconds for a spawned \"shadow\" to fade out",
+			"sid": 917277259345942
+		},
+		{
+			"name": "trailColor",
+			"type": "string",
+			"desc": "The \"R,G,B\" value of the shadows. This input are always 3 number values separated by \",\". For example the input \"100,0,0\" will give you a red shadow",
+			"sid": 199296908590272
+		},
+		{
+			"name": "trailOverObject",
+			"type": "boolean",
+			"desc": "True if the shadows should be drawn over the objects",
+			"sid": 730452005011270
+		},
+		{
+			"name": "trailFrequency",
+			"type": "number",
+			"desc": "The frequency in seconds that the shadows will spawn",
+			"sid": 432715402035500
+		},
+		{
+			"name": "trailEnabled",
+			"type": "boolean",
+			"desc": "Set this to true if you want the object to spawn shadow trail",
+			"sid": 522830588357175
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Timer",
+			"name": "trailTimer",
+			"sid": 969824571388410
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"c3pack_shadowTrail_spriteSample"
+	]
+}
