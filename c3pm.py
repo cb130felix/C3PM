@@ -89,7 +89,7 @@ def importPack_updateMetaData():
                 # get source project file data
 
                 c3pmFolder = {'items':[], 'subfolders' : [], 'name' : 'c3Packs'}
-                fileData = {'items':[], 'subfolders' : [], 'name' : packageName}
+                
                 keyRootPath = {}
                 
                 if fileTypeValue['c3File'] == 'true':
@@ -99,28 +99,52 @@ def importPack_updateMetaData():
                     keyRootPath['c3Pack'] = c3Proj['c3Pack']['rootFileFolders'][fileTypeKey]
                     keyRootPath['c3Project'] = c3Proj['c3Project']['rootFileFolders'][fileTypeKey]
                 
-                fileData['items'] = keyRootPath['c3Pack']['items']
-                fileData['subfolders'] = keyRootPath['c3Pack']['subfolders']
-               
                 # set target project file data
                 
                 folderIndex = 0
                 createC3packFolder = True
                 
-                for c3folder in keyRootPath['c3Project']['subfolders']:
+                for fileFolder in keyRootPath['c3Project']['subfolders']:
     
-                    if 'name' in c3folder:
-                        if c3folder['name'] == 'c3Packs':
+                    if 'name' in fileFolder:
+                        if fileFolder['name'] == 'c3Packs':
                             createC3packFolder = False
                             break
         
                     folderIndex = folderIndex + 1    
-                    
+                
+                
+
                 if createC3packFolder:
                     keyRootPath['c3Project']['subfolders'].append(c3pmFolder)
                     folderIndex = len(keyRootPath['c3Project']['subfolders']) -1
+                else:
+                    pass
+                
+                c3packFolder = keyRootPath['c3Project']['subfolders'][folderIndex]['subfolders']
 
-                keyRootPath['c3Project']['subfolders'][folderIndex]['subfolders'].append(fileData)
+                createThisPackFolder = True
+                packFolderIndex = 0
+
+                for packFolder in c3packFolder:
+                    if 'name' in packFolder:
+                        if packFolder['name'] == packageName:
+                            createThisPackFolder = False
+                            break
+                    packFolderIndex += 1
+
+                fileData = {'items':[], 'subfolders' : [], 'name' : packageName}
+                if createThisPackFolder:
+                    c3packFolder.append(fileData)
+                    packFolderIndex = len(c3packFolder) -1
+                
+                c3packFolder[packFolderIndex]['items'] = keyRootPath['c3Pack']['items']
+                c3packFolder[packFolderIndex]['subfolders'] = keyRootPath['c3Pack']['subfolders']
+                
+                #fileData['items'] = keyRootPath['c3Pack']['items']
+                #fileData['subfolders'] = keyRootPath['c3Pack']['subfolders']
+
+                #c3packFolder.append(fileData)
                             
     with open(folders['c3Project']['root'] + '/' + '/project.c3proj', 'w') as outfile:
         json.dump(c3Proj['c3Project'], outfile, indent=4)
@@ -245,26 +269,30 @@ def runTests():
         shutil.copytree(filesPath, copyPath)
 
     # 1 pack test
-    print("------------")
-    print("Test: Importing 1 pack into project")
-    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack.c3p", True, True)
+    if False:
+        print("------------")
+        print("Test: Importing 1 pack into project")
+        importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack.c3p", True, True)
     
     # Update pack test
-    print("------------")
-    print("Test: Importing the same packs into project 2 times")
-    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack_update.c3p", True, True)
-    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack_update.c3p", True, True)
+    if False:
+        print("------------")
+        print("Test: Importing the same packs into project 2 times")
+        importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack_update.c3p", True, True)
+        importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack_update.c3p", True, True)
     
     # folder project test
-    print("------------")
-    print("Test: Importing 1 pack into a folder project")
-    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/files/projects/project_folder/project.c3proj", True, True)
+    if True:
+        print("------------")
+        print("Test: Importing 1 pack into a folder project")
+        importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_folder/project.c3proj", True, True)
     
     # 2 packs test
-    print("------------")
-    print("Test: Importing 2 diferent packs into project")
-    importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_2packs.c3p", True, True)
-    importPack("test/copy/packs/[C3pack] Shadow Trail r_18902.c3pack", "test/copy/projects/project_2packs.c3p", True, True)
+    if True:
+        print("------------")
+        print("Test: Importing 2 diferent packs into project")
+        importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_2packs.c3p", True, True)
+        importPack("test/copy/packs/[C3pack] Shadow Trail r_18902.c3pack", "test/copy/projects/project_2packs.c3p", True, True)
 
 def main():
     runTests()
