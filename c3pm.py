@@ -6,8 +6,8 @@ from os.path import basename
 import zipfile
 from datetime import datetime
 
-
-folders = {'c3Pack' : {'source' : '', 'root' : 'temp/c3Pack'}, 'c3Project' : {'source' : '', 'root' : 'temp/c3Project'}, 'backup' : 'backups'}
+defaultC3ProjectRoot =  'temp/c3Project'
+folders = {'c3Pack' : {'source' : '', 'root' : 'temp/c3Pack'}, 'c3Project' : {'source' : defaultC3ProjectRoot, 'root' : 'temp/c3Project'}, 'backup' : 'backups'}
 
 def zipDir(dirPath, zipPath):
     zipf = zipfile.ZipFile(zipPath , mode='w')
@@ -168,6 +168,11 @@ def importPack(packPath, projectPath, writeOverOriginalFiles, overwriteRepeatedF
     
 
     try:
+        #remove old temp files
+        if (os.path.exists('temp')):
+            shutil.rmtree('temp')
+        
+        folders['c3Project']['root'] = defaultC3ProjectRoot
         folders['c3Pack']['source'] = packPath
         folders['c3Project']['source'] = projectPath
         
@@ -200,9 +205,7 @@ def importPack(packPath, projectPath, writeOverOriginalFiles, overwriteRepeatedF
                 else:
                     raise NameError("The file extension < " + fileData[projectType]['fileExtension'] +  " > for a c3 pack")
         
-        #remove old temp files
-        if (os.path.exists('temp')):
-            shutil.rmtree('temp')
+        
 
         # place project folder files in temp folder
         if projectIsC3p:
@@ -254,7 +257,7 @@ def importPack(packPath, projectPath, writeOverOriginalFiles, overwriteRepeatedF
         return {'status':'sucess', 'projectName' : zipPath}
 
     except Exception as e:
-        raise
+        #raise
         return {'status':'fail', 'error':e}
 
 def runTests():
@@ -269,13 +272,13 @@ def runTests():
         shutil.copytree(filesPath, copyPath)
 
     # 1 pack test
-    if False:
+    if True:
         print("------------")
         print("Test: Importing 1 pack into project")
         importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack.c3p", True, True)
     
     # Update pack test
-    if False:
+    if True:
         print("------------")
         print("Test: Importing the same packs into project 2 times")
         importPack("test/copy/packs/[c3pack] Color Blink r_18902.c3pack", "test/copy/projects/project_1pack_update.c3p", True, True)
