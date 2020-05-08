@@ -135,15 +135,15 @@ def main():
     #testList.append(['test/isoEngine.c3p','test/[c3pack] Color Blink r_18902.c3p'])
     #testList.append(['test/isoEngine.c3p','test/keyboardPack.c3p'])
 
-    testList.append(['test/spookids2.c3p','test/[C3pack] Shadow Trail r_18902.c3p'])
-    testList.append(['test/spookids2.c3p','test/[c3pack] Color Blink r_18902.c3p'])
+    #testList.append(['test/spookids2.c3p','test/[C3pack] Shadow Trail r_18902.c3p'])
+    testList.append(['test/spookids2.c3p','test/debug/bad/project.c3proj'])
 
 
     for i, test in enumerate(testList):
         try:
             C3PM(test[0], test[1]).packedProject.exportProject(
                 export_path='export/project_'+str(i),
-                one_file=True)
+                one_file=False)
         except Exception as e:
             logger.exception(e)
         

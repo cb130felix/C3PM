@@ -243,7 +243,7 @@ class C3Project:
                 destFolder = os.path.join(dst, os.path.basename(filename)) 
                 if not os.path.exists(destFolder):
                     os.mkdir(destFolder)
-                    self.copyFiles( filename, destFolder )
+                self.copyFiles( filename, destFolder )
     
     #updates c3proj file and sids according to the loaded files
     def updateC3proj(self):

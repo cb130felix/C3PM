@@ -10,7 +10,9 @@ import time
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtCore import QObject, pyqtSignal
+
+from PyQt5.QtCore import (QCoreApplication, QObject, QRunnable, QThread,
+                          QThreadPool, pyqtSignal)
 
 def open_file(path):
     if platform.system() == "Windows":
@@ -21,7 +23,40 @@ def open_file(path):
         subprocess.Popen(["xdg-open", path])
 
 
-class c3pm_app:
+
+class MergeProjectThread(QThread):
+
+    app = None
+    
+    def run(self):
+        
+        print("teste")
+        
+
+        try:
+            c3pm_model.C3PM(self.app.ui.lineEdit_mainProject.text(), self.app.ui.lineEdit_mergeProject.text(),
+            overwriteFiles=self.app.ui.checkBox_overwriteFiles.checkState()).packedProject.exportProject(
+            export_path=self.app.ui.lineEdit_exportPath.text(),
+            one_file=not self.app.ui.checkBox_folderProject.checkState(),
+            name=self.app.ui.lineEdir_fileName.text())
+            
+            open_file(self.app.ui.lineEdit_exportPath.text())
+
+            self.app.msg.setWindowTitle("Nice!")
+            self.app.msg.setText("The projects were merged successfully!")
+            
+            self.mergedSucess = True
+
+        except Exception as e:
+                        
+            self.app.msg.setWindowTitle("Oops, we had a problem...")
+            self.app.msg.setText("Not possible to merge the projects.\n\nDetails: \n " + str(e))
+
+            self.mergedSucess = False
+
+
+
+class c3pm_controller:
 
     version = "version"
     lastDir = ''
@@ -46,7 +81,13 @@ class c3pm_app:
         self.ui.lineEdit_exportPath.setText(os.path.join(os.getcwd(), "export"))
         self.ui.label_version.setText(self.version)
 
+
+        self.mergeThread = MergeProjectThread()
+        self.mergeThread.app = self
+        self.mergeThread.finished.connect(self.finishedMerge)
+
         self.msg = QMessageBox()
+
 
     def setSlots(self):
         self.ui.button_searchExportPath.clicked.connect(self.searchExportPath)
@@ -57,7 +98,22 @@ class c3pm_app:
         
 
     # pyqt slots --------------------------------------------------------
+    def mergeProjects(self):
+        
+        self.ui.button_mergeProjects.setText("Merging projects, please wait...")
+        self.MainWindow.setEnabled(False)
+        self.mergeThread.start()
 
+    def finishedMerge(self):
+        
+        if self.mergeThread.mergedSucess:
+            self.msg.setIcon(QMessageBox.Information)
+        else:
+            self.msg.setIcon(QMessageBox.Critical)
+
+        self.msg.exec_()
+        self.MainWindow.setEnabled(True)
+        self.ui.button_mergeProjects.setText("Merge projects")
 
     def test(self):
         print("test")
@@ -72,7 +128,7 @@ class c3pm_app:
 
     def searchMainProject(self):
         filePath = ""
-        fileData = QtWidgets.QFileDialog.getOpenFileName(directory=self.lastDir, filter='*.c3p')
+        fileData = QtWidgets.QFileDialog.getOpenFileName(directory=self.lastDir, filter='*.c3p;*.c3proj')
         
         self.lastDir = fileData[0]
         filePath = fileData[0]
@@ -83,7 +139,7 @@ class c3pm_app:
 
     def searchMergeProject(self):
         filename = ""
-        fileData = QtWidgets.QFileDialog.getOpenFileName(directory=self.lastDir, filter='*.c3p')
+        fileData = QtWidgets.QFileDialog.getOpenFileName(directory=self.lastDir, filter='*.c3p;*.c3proj')
         
         self.lastDir = fileData[0]
         filename = fileData[0]
@@ -101,8 +157,9 @@ class c3pm_app:
         if dirName != "":
             self.ui.lineEdit_exportPath.setText(dirName)
 
-            
-    def mergeProjects(self):
+
+
+    def temp(self):
         
         self.MainWindow.setEnabled(False)
         self.ui.button_mergeProjects.setText("Merging projects, please wait...")
@@ -139,4 +196,4 @@ class c3pm_app:
 
 
 if __name__ == "__main__":
-    c3pm_app().startApp()
+    c3pm_controller().startApp()
