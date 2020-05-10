@@ -96,6 +96,9 @@ class C3PM:
         logger.info("Updating plugins info...")
         self.packedProject.pFiles['c3proj']['usedAddons'] += (self.c3pack.pFiles['c3proj']['usedAddons'])
 
+        logger.info("Updating containers...")
+        self.packedProject.pFiles['c3proj']['containers'] += (self.c3pack.pFiles['c3proj']['containers'])
+
 
         logger.info("Checking for duplicated global vars...")
         projectGlobals = self.mainProject.getGlobalVarList()
@@ -120,33 +123,6 @@ class C3PM:
         return self.packedProject
                     
         
-        
-def main():
-    
-    testList = []
-
-    #testList.append(['test/testProject.c3p','test/[c3pack] Color Blink r_18902.c3p'])
-    #testList.append(['test/testProject.c3p', 'test/keyboardPack.c3p'])
-    #testList.append(['test/testProject.c3p', 'test/groupProject.c3p'])
-    #testList.append(['test/testProject.c3p', 'test/globalVarProject.c3p'])
-    #testList.append(['test/testProject.c3p', 'test/keyboardPack_bad.c3p'])
-    #testList.append(['test/testProject.c3p', 'test/isoEngine.c3p'])
-
-    #testList.append(['test/isoEngine.c3p','test/[c3pack] Color Blink r_18902.c3p'])
-    #testList.append(['test/isoEngine.c3p','test/keyboardPack.c3p'])
-
-    #testList.append(['test/spookids2.c3p','test/[C3pack] Shadow Trail r_18902.c3p'])
-    testList.append(['test/spookids2.c3p','test/debug/bad/project.c3proj'])
-
-
-    for i, test in enumerate(testList):
-        try:
-            C3PM(test[0], test[1]).packedProject.exportProject(
-                export_path='export/project_'+str(i),
-                one_file=False)
-        except Exception as e:
-            logger.exception(e)
-        
 
 if __name__== "__main__":
-    main()
+    import c3pm_test

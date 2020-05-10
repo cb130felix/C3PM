@@ -29,9 +29,6 @@ class MergeProjectThread(QThread):
     app = None
     
     def run(self):
-        
-        print("teste")
-        
 
         try:
             c3pm_model.C3PM(self.app.ui.lineEdit_mainProject.text(), self.app.ui.lineEdit_mergeProject.text(),
