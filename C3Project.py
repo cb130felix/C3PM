@@ -34,6 +34,15 @@ class C3File:
         self.content = content
         self.type = fType
         self.dir = fDir
+    
+    def __str__(self):
+        s = '---------------------\n'
+        s += "Instance of " + self.__class__.__name__ + "\n"
+        s += "Name: " + self.name + "\n"
+        s += "dir: " + str(self.dir) + '\n'
+        s += '---------------------'
+
+        return s
 
 class C3Project:
 

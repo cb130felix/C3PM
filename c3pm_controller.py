@@ -32,7 +32,8 @@ class MergeProjectThread(QThread):
 
         try:
             c3pm_model.C3PM(self.app.ui.lineEdit_mainProject.text(), self.app.ui.lineEdit_mergeProject.text(),
-            overwriteFiles=self.app.ui.checkBox_overwriteFiles.checkState()).packedProject.exportProject(
+            overwriteFiles=self.app.ui.checkBox_overwriteFiles.checkState(),
+            setDefaultFolders=self.app.ui.checkBox_createFolders.checkState()).mergedProject.exportProject(
             export_path=self.app.ui.lineEdit_exportPath.text(),
             one_file=not self.app.ui.checkBox_folderProject.checkState(),
             name=self.app.ui.lineEdir_fileName.text())
@@ -153,41 +154,6 @@ class c3pm_controller:
 
         if dirName != "":
             self.ui.lineEdit_exportPath.setText(dirName)
-
-
-
-    def temp(self):
-        
-        self.MainWindow.setEnabled(False)
-        self.ui.button_mergeProjects.setText("Merging projects, please wait...")
-
-        try:
-            c3pm_model.C3PM(self.ui.lineEdit_mainProject.text(), self.ui.lineEdit_mergeProject.text(),
-            overwriteFiles=self.ui.checkBox_overwriteFiles.checkState()).packedProject.exportProject(
-            export_path=self.ui.lineEdit_exportPath.text(),
-            one_file=not self.ui.checkBox_folderProject.checkState(),
-            name=self.ui.lineEdir_fileName.text())
-            
-            self.msg.setWindowTitle("Nice!")
-            self.msg.setText("The projects were merged successfully!")
-            self.msg.setIcon(QMessageBox.Information)
-            self.msg.exec_()
-        
-            open_file(self.ui.lineEdit_exportPath.text())
-
-        except Exception as e:
-
-            self.msg.setWindowTitle("Oops, we had a problem...")
-            self.msg.setText("Not possible to merge the projects.\n\nDetails: \n " + str(e))
-            self.msg.setIcon(QMessageBox.Critical)
-            self.msg.exec_()
-        
-        finally:
-
-            self.ui.button_mergeProjects.setText("Merge projects")
-            self.MainWindow.setEnabled(True)    
-    
-        
 
 
 

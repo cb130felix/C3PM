@@ -23,22 +23,17 @@ logger.addHandler(console)
 class C3PM:
 
     mergeSteps = 4
-    
     ignoreFileList = ['icon', 'timelines', 'ease']
 
-    def __init__(self, projectPath, packPath, overwriteFiles=False):
+    def __init__(self, projectPath, packPath, overwriteFiles=False, setDefaultFolders=True):
         self.overwriteFiles = overwriteFiles
-        self.c3pack = c3p.C3Project(packPath)
+        self.setDefaultFolders = setDefaultFolders
+        self.secondaryProject = c3p.C3Project(packPath)
         self.mainProject = c3p.C3Project(projectPath)
         self.projectList = []
 
         self.mergeProjects()
 
-    def setMainProject(self, c3Project):
-        self.mainProject = c3Project
-
-    def addProjectToMerge(self, c3Project):
-        self.projectList.append(c3Project)
 
     def mergeProjects(self):
         
@@ -46,63 +41,73 @@ class C3PM:
         self.currentStep = 0
 
 
-        packName = self.c3pack.pFiles['c3proj']['name']
+        packName = self.secondaryProject.pFiles['c3proj']['name']
         packAuthor = "Anonymous"        
 
-        if self.c3pack.pFiles['c3proj']['properties']['author'] != "":
-            packAuthor = self.c3pack.pFiles['c3proj']['properties']['author']
+        if self.secondaryProject.pFiles['c3proj']['properties']['author'] != "":
+            packAuthor = self.secondaryProject.pFiles['c3proj']['properties']['author']
 
-        self.packedProject = copy.deepcopy(self.mainProject)
+        self.mergedProject = copy.deepcopy(self.mainProject)
 
         
-        logger.info("Importing pack " + self.c3pack.pFiles['c3proj']['name'] + " into project " + self.mainProject.pFiles['c3proj']['name'] + "...")
+        logger.info("Importing pack " + self.secondaryProject.pFiles['c3proj']['name'] + " into project " + self.mainProject.pFiles['c3proj']['name'] + "...")
         self.currentStep += 1        
         
         # merge project files
         logger.info("Checking duplicated files...")
-        for fKey, fValue in self.c3pack.pFiles['files'].items():
+        for fKey, fValue in self.secondaryProject.pFiles['files'].items():
             
             if fKey in self.ignoreFileList : continue
 
             for f in fValue['fList']:
-                packedFileList = self.packedProject.pFiles['files'][fKey]['fList']
+                mFileList = self.mainProject.pFiles['files'][fKey]['fList']
                 addFile = True
 
                 # check for duplicated single global instance objects
-                for packedFile in packedFileList:
+                for mFile in mFileList:
                     
                     if fKey in c3p.C3Project.c3FileList:
                         if 'singleglobal-inst' in f.content:
-                            if f.content['plugin-id'] == packedFile.content['plugin-id']:
-                                if f.content['name'] == packedFile.content['name']:
+                            if f.content['plugin-id'] == mFile.content['plugin-id']:
+                                if f.content['name'] == mFile.content['name']:
                                     addFile = False
                                     continue
                                 else:
                                     raise NameError('Not possible to import a pack with duplicated single global instance <'+ f.content['plugin-id'] +'> with diferent name <' + f.content['name'] + '>')
                 
-                    if f.name == packedFile.name:
+                    if f.name == mFile.name:
                         if self.overwriteFiles:
-                            packedFileList.remove(packedFile)
+                            mFileList.remove(mFile)
+                            addFile = False
                         else:
                             raise NameError('Duplicated <' + fKey + '> file found: ' + f.name)
 
                 if addFile:
+                    
+                    tempF = copy.deepcopy(f)
+                    
+                    if self.setDefaultFolders:
+                        
+                        tempF.dir.insert(0, packName + " by " + packAuthor)
+                        tempF.dir.insert(0, 'C3PM')
 
-                    f.dir.insert(0, packName + " by " + packAuthor)
-                    f.dir.insert(0, 'C3PM')
-                    packedFileList.append(f)
+                        print(tempF)
+                    
+                    self.mergedProject.pFiles['files'][fKey]['fList'].append(tempF)
+
+
         self.currentStep += 1
 
         logger.info("Updating plugins info...")
-        self.packedProject.pFiles['c3proj']['usedAddons'] += (self.c3pack.pFiles['c3proj']['usedAddons'])
+        self.mergedProject.pFiles['c3proj']['usedAddons'] += (self.secondaryProject.pFiles['c3proj']['usedAddons'])
 
         logger.info("Updating containers...")
-        self.packedProject.pFiles['c3proj']['containers'] += (self.c3pack.pFiles['c3proj']['containers'])
+        self.mergedProject.pFiles['c3proj']['containers'] += (self.secondaryProject.pFiles['c3proj']['containers'])
 
 
         logger.info("Checking for duplicated global vars...")
         projectGlobals = self.mainProject.getGlobalVarList()
-        packGlobals = self.c3pack.getGlobalVarList()
+        packGlobals = self.secondaryProject.getGlobalVarList()
 
         for packGlobal in packGlobals:
             if packGlobal in projectGlobals:
@@ -111,7 +116,7 @@ class C3PM:
 
         logger.info("Checking for duplicated groups...")
         projectGroups = self.mainProject.getGroupList()
-        packGroups = self.c3pack.getGroupList()
+        packGroups = self.secondaryProject.getGroupList()
 
         for packGroup in packGroups:
             if packGroup in projectGroups:
@@ -120,7 +125,7 @@ class C3PM:
 
         
         logger.info("Project merged succesfully!")
-        return self.packedProject
+        return self.mergedProject
                     
         
 

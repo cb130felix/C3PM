@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>561</width>
-    <height>603</height>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -157,7 +157,7 @@
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>510</y>
+      <y>520</y>
       <width>401</width>
       <height>41</height>
      </rect>
@@ -182,7 +182,7 @@
       <x>30</x>
       <y>300</y>
       <width>501</width>
-      <height>191</height>
+      <height>201</height>
      </rect>
     </property>
     <property name="title">
@@ -244,7 +244,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>170</y>
        <width>341</width>
        <height>20</height>
       </rect>
@@ -257,7 +257,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>150</y>
        <width>281</width>
        <height>20</height>
       </rect>
@@ -280,6 +280,22 @@
      </property>
      <property name="text">
       <string>Search</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_createFolders">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>281</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Create folders for merged objects</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>

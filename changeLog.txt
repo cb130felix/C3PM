@@ -5,4 +5,17 @@ v1.0.1
 - Added support to object containers
 
 
-***********************************************************
+=========================
+v1.0.2
+=========================
+
+- Fixed a bug that would create various not desired subfolders for merged objects
+- Added a option to disable c3 folders for merged files
+
+=========================
+v1.0.3
+=========================
+
+Bug fix:
+
+- Fixed a bug that made the "Overwrite repeated files" options work incorrectly leading to corrupted projects.

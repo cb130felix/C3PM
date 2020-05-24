@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c3pm_view.ui'
+# Form implementation generated from reading ui file 'c3pm_ui.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(561, 620)
+        MainWindow.resize(561, 603)
         MainWindow.setAnimated(True)
         MainWindow.setDocumentMode(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -58,7 +58,7 @@ class Ui_MainWindow(object):
         self.button_searchMergeProject.setGeometry(QtCore.QRect(410, 100, 81, 21))
         self.button_searchMergeProject.setObjectName("button_searchMergeProject")
         self.button_mergeProjects = QtWidgets.QPushButton(self.centralwidget)
-        self.button_mergeProjects.setGeometry(QtCore.QRect(80, 520, 401, 41))
+        self.button_mergeProjects.setGeometry(QtCore.QRect(80, 510, 401, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         self.button_mergeProjects.setObjectName("button_mergeProjects")
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_2.setEnabled(True)
-        self.groupBox_2.setGeometry(QtCore.QRect(30, 300, 501, 201))
+        self.groupBox_2.setGeometry(QtCore.QRect(30, 300, 501, 191))
         self.groupBox_2.setObjectName("groupBox_2")
         self.lineEdit_exportPath = QtWidgets.QLineEdit(self.groupBox_2)
         self.lineEdit_exportPath.setGeometry(QtCore.QRect(10, 50, 391, 22))
@@ -82,19 +82,15 @@ class Ui_MainWindow(object):
         self.lineEdir_fileName.setGeometry(QtCore.QRect(10, 100, 481, 22))
         self.lineEdir_fileName.setObjectName("lineEdir_fileName")
         self.checkBox_overwriteFiles = QtWidgets.QCheckBox(self.groupBox_2)
-        self.checkBox_overwriteFiles.setGeometry(QtCore.QRect(10, 170, 341, 20))
+        self.checkBox_overwriteFiles.setGeometry(QtCore.QRect(10, 150, 341, 20))
         self.checkBox_overwriteFiles.setObjectName("checkBox_overwriteFiles")
         self.checkBox_folderProject = QtWidgets.QCheckBox(self.groupBox_2)
-        self.checkBox_folderProject.setGeometry(QtCore.QRect(10, 150, 281, 20))
+        self.checkBox_folderProject.setGeometry(QtCore.QRect(10, 130, 281, 20))
         self.checkBox_folderProject.setChecked(False)
         self.checkBox_folderProject.setObjectName("checkBox_folderProject")
         self.button_searchExportPath = QtWidgets.QPushButton(self.groupBox_2)
         self.button_searchExportPath.setGeometry(QtCore.QRect(410, 50, 81, 21))
         self.button_searchExportPath.setObjectName("button_searchExportPath")
-        self.checkBox_createFolders = QtWidgets.QCheckBox(self.groupBox_2)
-        self.checkBox_createFolders.setGeometry(QtCore.QRect(10, 130, 281, 20))
-        self.checkBox_createFolders.setChecked(True)
-        self.checkBox_createFolders.setObjectName("checkBox_createFolders")
         self.label_explain = QtWidgets.QLabel(self.centralwidget)
         self.label_explain.setGeometry(QtCore.QRect(60, 90, 441, 51))
         font = QtGui.QFont()
@@ -141,7 +137,6 @@ class Ui_MainWindow(object):
         self.checkBox_overwriteFiles.setText(_translate("MainWindow", "Overwrite repeated files (not recommended)"))
         self.checkBox_folderProject.setText(_translate("MainWindow", "Export as project folder"))
         self.button_searchExportPath.setText(_translate("MainWindow", "Search"))
-        self.checkBox_createFolders.setText(_translate("MainWindow", "Create folders for merged objects"))
         self.label_explain.setText(_translate("MainWindow", "Merge two Construct 3 projects into one. The resulting project will have files from both projects but it will keep the project properties of the one selected as the Main project"))
         self.menuAbout.setTitle(_translate("MainWindow", "Help"))
         self.actionAbout.setText(_translate("MainWindow", "About"))
