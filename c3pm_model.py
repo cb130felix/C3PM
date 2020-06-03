@@ -20,6 +20,20 @@ logger.addHandler(console)
 
 #---------------------------------------------------------
 
+def getDuplicates(dataList):
+    
+    tempList = []
+    duplicateList = []
+
+    for item in dataList:
+        if item in tempList: duplicateList.append(item)
+        tempList.append(item)
+        
+    return duplicateList
+
+
+
+
 class C3PM:
 
     mergeSteps = 4
@@ -60,7 +74,7 @@ class C3PM:
             if fKey in self.ignoreFileList : continue
 
             for f in fValue['fList']:
-                mFileList = self.mainProject.pFiles['files'][fKey]['fList']
+                mFileList = self.mergedProject.pFiles['files'][fKey]['fList']
                 addFile = True
 
                 # check for duplicated single global instance objects
@@ -77,8 +91,7 @@ class C3PM:
                 
                     if f.name == mFile.name:
                         if self.overwriteFiles:
-                            mFileList.remove(mFile)
-                            addFile = False
+                            self.mergedProject.pFiles['files'][fKey]['fList'].remove(mFile)
                         else:
                             raise NameError('Duplicated <' + fKey + '> file found: ' + f.name)
 
@@ -104,7 +117,22 @@ class C3PM:
         logger.info("Updating containers...")
         self.mergedProject.pFiles['c3proj']['containers'] += (self.secondaryProject.pFiles['c3proj']['containers'])
 
+        projectGlobals = self.mergedProject.getGlobalVarList()
+        duplicatedGlobals = getDuplicates(projectGlobals)
+        
+        if duplicatedGlobals:
+            raise NameError('Duplicated global variable(s) found: ' + str(duplicatedGlobals))
+        
+        projectGroups = self.mergedProject.getGroupList()
+        duplicatedGroups = getDuplicates(projectGroups)
+        
+        if duplicatedGroups:
+            raise NameError('Duplicated global variable(s) found: ' + str(duplicatedGroups))
+        
 
+        
+        
+        '''
         logger.info("Checking for duplicated global vars...")
         projectGlobals = self.mainProject.getGlobalVarList()
         packGlobals = self.secondaryProject.getGlobalVarList()
@@ -122,7 +150,7 @@ class C3PM:
             if packGroup in projectGroups:
                 raise NameError('Duplicated group: ' + packGroup)
         self.currentStep += 1
-
+        '''
         
         logger.info("Project merged succesfully!")
         return self.mergedProject
@@ -130,4 +158,5 @@ class C3PM:
         
 
 if __name__== "__main__":
+    
     import c3pm_test

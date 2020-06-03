@@ -19,3 +19,11 @@ v1.0.3
 Bug fix:
 
 - Fixed a bug that made the "Overwrite repeated files" options work incorrectly leading to corrupted projects.
+
+=========================
+v1.0.4
+=========================
+
+Bug fix:
+
+- Merging projects with the option "Overwrite repeated files" would unintentionally keep the projects from the main project instead of the secondary project
